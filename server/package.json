@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "socket-alisa-server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bondrogeen/alisa-web.git"
+  },
+  "author": "bondrogeen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bondrogeen/alisa-web/issues"
+  },
+  "homepage": "https://github.com/bondrogeen/alisa-web#readme",
+  "dependencies": {
+    "alisa-npm": "^0.1.1",
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0"
+  }
+}
