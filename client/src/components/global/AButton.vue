@@ -1,6 +1,7 @@
 <template>
-  <button class="a-button" :class="[`a-button--${color}`, { 'a-button--full': full }]" @click="$emit('click', $event)">
-    <slot>{{ text }}</slot>
+  <button class="a-button" :class="[`a-button--${color}`, { 'a-button--full': full }, { 'a-button--loading': loading }]" @click="click">
+    <slot v-if="!loading">{{ text }}</slot>
+    <a-spinner v-else />
   </button>
 </template>
 
@@ -13,15 +14,22 @@ export default {
       default: 'Button',
     },
     color: String,
-    full: Boolean
+    full: Boolean,
+    loading: Boolean,
+  },
+  methods: {
+    click(event) {
+      if (this.loading) return;
+      this.$emit('click', event);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .a-button {
-  padding: 6px 12px;
-  min-height: 32px;
+  padding: 0 12px;
+  min-height: 40px;
   border: none;
   border-radius: 7px;
   font-size: 16px;
@@ -30,7 +38,9 @@ export default {
   color: #1e2121;
   background-color: #d4d4d4;
   transition: all 0.2s ease-out;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &--full {
     width: 100%;
   }
@@ -38,9 +48,13 @@ export default {
     background-color: blueviolet;
     color: aliceblue;
   }
+  &--loading {
+    cursor: default;
+    opacity: 0.7;
+  }
   &:hover {
     // opacity: 0.7;
-    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
   }
 }
 </style>
