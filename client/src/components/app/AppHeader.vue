@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="header__brand">Alisa Web</div>
+    <div class="header__brand" @click="$router.push('/login')">Alisa Web</div>
     <div class="header__center"></div>
     <div class="header__profile">
       <!-- <a-button color="primary">Log in</a-button> -->
