@@ -1,6 +1,6 @@
 # Alisa Web 
 
-Fullstack vue aplication
+Fullstack vue aplication 
 
 ## Installation
 
@@ -11,7 +11,7 @@ git clone https://github.com/bondrogeen/alisa-web
 cd alisa-web/
 ```
 
-Install Client (vue)
+Install Client (dev vue)
 ```
 cd client
 
@@ -24,10 +24,12 @@ Install server
 cd server
 
 npm i
+
+npm start
 ```
 
 
-#### 0.1.0
+#### 0.1.1
 * (bondrogeen) initial release
 
 ## License
