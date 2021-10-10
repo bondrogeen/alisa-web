@@ -2,6 +2,10 @@
 
 Fullstack vue aplication 
 
+![image](https://raw.githubusercontent.com/bondrogeen/alisa-web/main/images/screen_1.jpg)
+
+![image](https://raw.githubusercontent.com/bondrogeen/alisa-web/main/images/screen_2.jpg)
+
 ## Installation
 
 Clone project
