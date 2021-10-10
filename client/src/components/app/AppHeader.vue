@@ -3,15 +3,28 @@
     <div class="header__brand">Alisa Web</div>
     <div class="header__center"></div>
     <div class="header__profile">
-      <a-button color="primary">Log in</a-button>
+      <!-- <a-button color="primary">Log in</a-button> -->
+      <i v-if="login" class="icon icon-settings"></i>
+      <i v-else class="icon icon-user"></i>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  name: 'app-header',
+  computed: {
+    login() {
+      return true
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .header {
   height: 100%;
-  background-color: #fff;
+  background: #3c1199;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +33,11 @@
   &__brand {
     font-size: 1.5em;
     font-weight: 700;
+  }
+  &__profile {
+    i {
+      font-size: 1.5em;
+    }
   }
 }
 </style>

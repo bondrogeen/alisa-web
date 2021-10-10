@@ -6,11 +6,7 @@
         <Device />
       </div>
       <div v-if="!devices.length" class="page-home__list page-home__empty">
-        <img
-          width="80"
-          height="80"
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAAWklEQVRoge3XsQ2AMAwAwcD+O0NPA02sF7obwMkrjbMWALCOzfOvqfPOXYOnCakRUiOkRkiNkBohNV+30ecWO+31nr95ESE1fog1QmqE1AipEVIjpEYIABB0A2/0Az6X8bpXAAAAAElFTkSuQmCC"
-        />
+        <span>Add</span>
       </div>
     </div>
   </div>
@@ -37,16 +33,22 @@ export default {
   &__empty {
     margin: 10px 0;
     height: 220px;
+
     background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 20px;
     cursor: pointer;
-    transition: all 0.2s ease-out;
-    opacity: 0.5;
+    transition: all 0.3s ease-out;
+    // opacity: 0.5;
     &:hover {
-      opacity: 0.6;
+      // opacity: 0.6;
+      box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    }
+    span {
+      font-size: 25px;
+      color: rgb(8, 8, 14);
     }
   }
   &__list {
@@ -63,7 +65,6 @@ export default {
     flex: 0 0 80px;
     font-size: 24px;
     line-height: 28px;
-    color: rgba(0, 0, 0, 0.8);
   }
 }
 @media screen and (min-width: 600px) {

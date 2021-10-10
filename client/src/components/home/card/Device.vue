@@ -54,6 +54,7 @@ export default {
   min-width: 200px;
   padding: 20px;
   height: 220px;
+  color: #000;
   background-color: #fff;
   display: flex;
   flex-direction: column;

@@ -29,7 +29,8 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #f2f3f5;
+  // background: #f2f3f5;
+  background: #091227;
   &__header {
     flex: 0 0 50px;
   }

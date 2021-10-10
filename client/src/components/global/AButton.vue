@@ -39,7 +39,8 @@ export default {
     color: aliceblue;
   }
   &:hover {
-    opacity: 0.7;
+    // opacity: 0.7;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
   }
 }
 </style>
