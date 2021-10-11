@@ -37,7 +37,7 @@
 export default {
   name: 'card-login',
   data: () => ({
-    getToken: false,
+    getToken: true,
   }),
 };
 </script>

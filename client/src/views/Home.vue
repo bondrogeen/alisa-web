@@ -1,9 +1,9 @@
 <template>
   <div class="page-home">
-    <div class="page-home__title">Мои устройства</div>
+    <div class="page-home__title">My devices</div>
     <div class="page-home__devices">
       <div v-for="(device, i) of devices" :key="i" class="page-home__list">
-        <Device />
+        <Device v-bind="device" />
       </div>
       <div v-if="!devices.length" class="page-home__list page-home__empty">
         <span>Add</span>
@@ -20,8 +20,12 @@ export default {
     Device,
   },
   data: () => ({
-    devices: [1],
   }),
+  computed: {
+    devices () {
+      return this.$store.getters['socket/getDevices']
+    }
+  }
 };
 </script>
 

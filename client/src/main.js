@@ -33,6 +33,9 @@ Vue.config.productionTip = false;
 // import global components
 import components from '@/components/global'
 components.forEach(component => Vue.component(component.name, component))
+// import global directives
+import directives from './utils/directives'
+directives.forEach(directive => Vue.directive(directive.name, directive))
 
 new Vue({
   router,

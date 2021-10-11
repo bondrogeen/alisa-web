@@ -24,8 +24,8 @@
       <div class="card-player__buttons">
         <div class="card-player__track hover">
           <i class="icon icon-skip-back"></i>
-          <i v-if="state.playing" class="icon icon-play"></i>
-          <i v-else class="icon icon-pause"></i>
+          <i v-if="state.playing" class="icon icon-pause"></i>
+          <i v-else class="icon icon-play"></i>
           <i class="icon icon-skip-forward"></i>
         </div>
         <div class="card-player__volume hover">

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import Player from '@/components/player';
 export default {
   name: 'page-player',
@@ -16,9 +15,9 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapGetters({
-      message: 'socket/getMessage',
-    }),
+    message() {
+      return this.$store.getters['socket/getMessage'](this.$route.params.id )
+    }
   },
 };
 </script>
