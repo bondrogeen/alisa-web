@@ -23,7 +23,8 @@ app.get("*", function (req, res) {
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.emit('config', alisa.getState());
-  socket.on('message', message => {
+  socket.on('send', message => {
+    alisa.send(message);
     console.log(message)
   })
   socket.on('disconnect', () => {

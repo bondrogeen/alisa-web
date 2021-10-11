@@ -6,7 +6,7 @@
     </div>
     <div class="card-player__preview" :style="{ backgroundImage: `url(https://${coverURI})` }"></div>
     <div class="card-player__body hover">
-      <i class="icon icon-heart"></i>
+      <i class="icon icon-heart" @click="command('like')"></i>
       <div>
         <h3 class="card-player__title">{{ playerState.title }}</h3>
         <p class="card-player__subtitle">{{ playerState.subtitle }}</p>
@@ -23,15 +23,13 @@
       </div>
       <div class="card-player__buttons">
         <div class="card-player__track hover">
-          <i class="icon icon-skip-back"></i>
-          <i v-if="state.playing" class="icon icon-pause"></i>
-          <i v-else class="icon icon-play"></i>
-          <i class="icon icon-skip-forward"></i>
+          <i class="icon icon-skip-back" @click="command('prev')"></i>
+          <i v-if="state.playing" class="icon icon-pause" @click="command('stop')"></i>
+          <i v-else class="icon icon-play" @click="command('play')"></i>
+          <i class="icon icon-skip-forward" @click="command('next')"></i>
         </div>
-        <div class="card-player__volume hover">
-          <i class="icon icon-volume-2"></i>
-          <!-- <span>0.1</span> -->
-          <!-- <i class="icon icon-volume-1"></i> -->
+        <div class="card-player__volume">
+          <Volume :volume="volume" @change="change" />
         </div>
       </div>
     </div>
@@ -42,9 +40,12 @@
 </template>
 
 <script>
+import Volume from './comp/Volume';
 export default {
   name: 'page-player',
-  components: {},
+  components: {
+    Volume,
+  },
   props: {
     message: {
       type: Object,
@@ -53,6 +54,10 @@ export default {
   },
   data: () => ({}),
   computed: {
+    volume() {
+      console.log(this.state?.volume);
+      return this.state?.volume || 0;
+    },
     playerState() {
       return this.message.state.playerState;
     },
@@ -77,6 +82,17 @@ export default {
       var date = new Date(null);
       date.setSeconds(this.playerState.progress);
       return date.toISOString().substr(14, 5);
+    },
+  },
+  methods: {
+    change(value) {
+      this.$emit('command', {
+        command: 'setVolume',
+        volume: value,
+      });
+    },
+    command(comm) {
+      this.$emit('command', { command: comm });
     },
   },
 };
@@ -167,9 +183,7 @@ $fontSize: 32px;
   &__volume {
     position: absolute;
     left: 0;
-    i {
-      margin: 0 20px;
-    }
+    margin-left: 20px;
   }
   &__track {
   }
@@ -182,7 +196,7 @@ $fontSize: 32px;
   &__line {
     height: 3px;
     width: 30%;
-    display: block;    
+    display: block;
     background-color: azure;
   }
 }

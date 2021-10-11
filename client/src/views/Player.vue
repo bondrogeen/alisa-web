@@ -1,7 +1,7 @@
 <template>
   <div class="page-player">
     <div class="page-player__inner">
-      <Player :message="message" />
+      <Player :message="message" @command="command"/>
     </div>
   </div>
 </template>
@@ -19,6 +19,12 @@ export default {
       return this.$store.getters['socket/getMessage'](this.$route.params.id )
     }
   },
+  methods: {
+    command(message) {
+      console.log(message)
+      this.$socket.emit('send', { id: this.$route.params.id, message });
+    }
+  }
 };
 </script>
 
