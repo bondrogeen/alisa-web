@@ -20,7 +20,7 @@ export default {
   props: {
     volume: {
       type: Number,
-      default: 0
+      default: 0,
     },
   },
   data: () => ({
@@ -30,11 +30,14 @@ export default {
   computed: {
     volumeTemp: {
       set(value) {
-        this.$emit('change', value / 100)
+        this.$emit('command', {
+          command: 'setVolume',
+          volume: value / 100,
+        });
       },
       get() {
-        return this.volume * 100
-      }
+        return this.volume * 100;
+      },
     },
     getValue() {
       return { width: `${this.volumeTemp}%` };
@@ -59,15 +62,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/css/mixin';
 .player-volume {
   position: relative;
   i {
-    cursor: pointer;
-    font-size: 32px;
-    transition: all 0.2s ease-out;
-    &:hover {
-      color: azure;
-    }
+    @include icon-hover;
   }
   &__body {
     position: absolute;

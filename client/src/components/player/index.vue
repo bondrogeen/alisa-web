@@ -5,31 +5,25 @@
       <h1>Play now</h1>
     </div>
     <div class="card-player__preview" :style="{ backgroundImage: `url(https://${coverURI})` }"></div>
-    <div class="card-player__body hover">
-      <i class="icon icon-heart" @click="command('like')"></i>
+    <div class="card-player__body">
       <div>
         <h3 class="card-player__title">{{ playerState.title }}</h3>
         <p class="card-player__subtitle">{{ playerState.subtitle }}</p>
       </div>
     </div>
     <div class="card-player__control">
-      <div class="card-player__time">
-        <span>{{ lastTime }}</span>
-        <span>{{ time }}</span>
-      </div>
-      <div class="card-player__slider">
-        <div class="line"></div>
-        <div class="pointer" :style="{ left: `${line}%` }"></div>
+      <div class="card-player__seekbar">
+        <Seekbar v-bind="playerState" @command="$emit('command', $event)" />
       </div>
       <div class="card-player__buttons">
-        <div class="card-player__track hover">
-          <i class="icon icon-skip-back" @click="command('prev')"></i>
-          <i v-if="state.playing" class="icon icon-pause" @click="command('stop')"></i>
-          <i v-else class="icon icon-play" @click="command('play')"></i>
-          <i class="icon icon-skip-forward" @click="command('next')"></i>
-        </div>
         <div class="card-player__volume">
-          <Volume :volume="volume" @change="change" />
+          <Volume :volume="volume" @command="$emit('command', $event)" />
+        </div>
+        <div class="card-player__track">
+          <TrackControl v-bind="playerState" :playing="isPlaying" @command="$emit('command', $event)" />
+        </div>
+        <div class="card-player__like hover">
+          <i class="icon icon-heart" @click="text('Поставь лайк')"></i>
         </div>
       </div>
     </div>
@@ -40,59 +34,50 @@
 </template>
 
 <script>
-import Volume from './comp/Volume';
 export default {
   name: 'page-player',
   components: {
-    Volume,
+    Seekbar: () => import('./comp/Seekbar'),
+    Volume: () => import('./comp/Volume'),
+    TrackControl: () => import('./comp/TrackControl'),
   },
   props: {
-    message: {
+    state: {
       type: Object,
-      default: Object,
+      default: () => {},
     },
+    experiments: {
+      type: Object,
+      default: () => {},
+    },
+    sentTime: Number,
   },
   data: () => ({}),
   computed: {
+    isPlaying() {
+      return this.state?.playing ?? false;
+    },
     volume() {
-      console.log(this.state?.volume);
       return this.state?.volume || 0;
     },
     playerState() {
-      return this.message.state.playerState;
-    },
-    state() {
-      return this.message.state;
+      // console.log(JSON.stringify(this.state?.playerState, null, 2));
+      return this.state?.playerState || {};
     },
     coverURI() {
-      return this.extra.coverURI.replace('%%', '200x200');
+      const url = this.extra?.coverURI || '';
+      return url.replace('%%', '200x200');
     },
     extra() {
-      return this.playerState.extra;
-    },
-    line() {
-      return (this.playerState.progress * 100) / this.playerState.duration;
-    },
-    time() {
-      var date = new Date(null);
-      date.setSeconds(this.playerState.duration);
-      return date.toISOString().substr(14, 5);
-    },
-    lastTime() {
-      var date = new Date(null);
-      date.setSeconds(this.playerState.progress);
-      return date.toISOString().substr(14, 5);
+      return this.playerState?.extra || {};
     },
   },
   methods: {
-    change(value) {
+    text(text) {
       this.$emit('command', {
-        command: 'setVolume',
-        volume: value,
+        command: 'sendText',
+        text,
       });
-    },
-    command(comm) {
-      this.$emit('command', { command: comm });
     },
   },
 };
@@ -106,29 +91,6 @@ $fontSize: 32px;
   display: flex;
   flex-direction: column;
   color: #56617e;
-  &__time {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px 20px 20px;
-  }
-  &__slider {
-    padding: 10px 20px;
-    position: relative;
-
-    .line {
-      height: 2px;
-      background-color: rgb(211, 120, 0);
-    }
-    .pointer {
-      position: absolute;
-      background-color: rgb(226, 211, 192);
-      top: calc(50% - 10px);
-      left: 30px;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-    }
-  }
   &__title {
     color: aliceblue;
     font-size: 1.5em;
@@ -177,15 +139,18 @@ $fontSize: 32px;
     justify-content: center;
     position: relative;
     i {
-      margin: 0 10px;
+      // margin: 0 10px;
     }
   }
   &__volume {
-    position: absolute;
-    left: 0;
-    margin-left: 20px;
+    // position: absolute;
+    // left: 0;
+    margin-right: auto;
   }
   &__track {
+  }
+  &__like {
+    margin-left: auto;
   }
   &__footer {
     flex: 0 0 50px;
