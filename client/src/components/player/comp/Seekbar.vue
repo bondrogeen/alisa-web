@@ -30,11 +30,12 @@ export default {
   data: () => ({
     hasMove: false,
     position: 0,
-    saveState: 0
+    saveState: 0,
   }),
   computed: {
     line() {
-      const state = this.hasMove && this.position ? this.position : Math.round((this.progress * 1000) / this.duration) / 10;
+      const state =
+        this.hasMove && this.position ? this.position : Math.round((this.progress * 1000) / this.duration) / 10;
       return isNaN(state) ? 0 : state;
     },
     time() {
@@ -52,7 +53,7 @@ export default {
     click({ layerX }) {
       if (this.hasProgressBar) {
         const width = this.$refs.slider.clientWidth;
-        const percent = Math.round((layerX * 100) / width / 10) * 10;
+        const percent = Math.round((layerX * 100) / width);
         this.position = percent;
         this.sendRewind(percent);
       }
@@ -69,18 +70,19 @@ export default {
       }
     },
     sendRewind(percent) {
-      this.saveState = Math.round((this.duration / 100) * percent)
       this.$emit('command', {
         command: 'rewind',
-        position: this.saveState,
+        position: Math.round((this.duration / 100) * percent),
       });
     },
     mousedown() {
       this.hasMove = true;
     },
     mouseup() {
-      this.hasMove = false;
-      this.sendRewind(this.position);
+      if (this.hasMove) {
+        this.hasMove = false;
+        this.sendRewind(this.position);
+      }
     },
   },
   mounted() {

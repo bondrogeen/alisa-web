@@ -67,7 +67,7 @@ export default {
       return this.state?.volume || 0;
     },
     playerState() {
-      console.log(JSON.stringify(this.state, null, 2));
+      // console.log(JSON.stringify(this.state, null, 2));
       return this.state?.playerState || {};
     },
     coverURI() {
