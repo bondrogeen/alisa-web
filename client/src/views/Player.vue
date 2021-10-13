@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     command(message) {
-      console.log(message)
+      // console.log(message)
       this.$socket.emit('send', { id: this.$route.params.id, message });
     }
   }

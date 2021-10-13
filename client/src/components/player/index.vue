@@ -4,7 +4,9 @@
       <i class="icon icon-arrow-left" @click="$router.back()"></i>
       <h1>Play now</h1>
     </div>
-    <div class="card-player__preview" :style="{ backgroundImage: `url(https://${coverURI})` }"></div>
+    <div class="card-player__preview">
+      <img height="200" width="200" :src="`https://${coverURI}`" alt="">
+    </div>
     <div class="card-player__body">
       <div>
         <h3 class="card-player__title">{{ playerState.title }}</h3>
@@ -23,7 +25,8 @@
           <TrackControl v-bind="playerState" :playing="isPlaying" @command="$emit('command', $event)" />
         </div>
         <div class="card-player__like hover">
-          <i class="icon icon-heart" @click="text('Поставь лайк')"></i>
+          <i v-if="isMy" class="icon icon-heart-on"></i>
+          <i v-else class="icon icon-heart" @click="text('Поставь лайк')"></i>
         </div>
       </div>
     </div>
@@ -57,11 +60,14 @@ export default {
     isPlaying() {
       return this.state?.playing ?? false;
     },
+    isMy() {
+      return (this.playerState?.playlistType ?? '') === 'Playlist';
+    },
     volume() {
       return this.state?.volume || 0;
     },
     playerState() {
-      // console.log(JSON.stringify(this.state?.playerState, null, 2));
+      console.log(JSON.stringify(this.state, null, 2));
       return this.state?.playerState || {};
     },
     coverURI() {
@@ -95,8 +101,10 @@ $fontSize: 32px;
     color: aliceblue;
     font-size: 1.5em;
     text-align: center;
+    min-height: 30px;
   }
   &__subtitle {
+    min-height: 30px;
     text-align: center;
     font-size: 1.2em;
   }
@@ -114,9 +122,17 @@ $fontSize: 32px;
   }
   &__preview {
     margin: auto;
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     background: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(closest-side, #3c1199,  #091227);
+    img {
+      border-radius: 10px;
+      box-shadow:blue($color: #000000);
+    }
   }
   &__body {
     flex: 1 1 auto;

@@ -33,6 +33,9 @@ npm start
 ```
 
 
+#### 0.1.3
+* (bondrogeen) (client) add page player
+
 #### 0.1.1
 * (bondrogeen) initial release
 

@@ -4,9 +4,9 @@
       <span>{{ lastTime }}</span>
       <span>{{ time }}</span>
     </div>
-    <div class="player-seekbar__slider" ref="slider" @click="click">
-      <div class="player-seekbar__line"></div>
-      <div class="player-seekbar__pointer" :style="`left: calc(${line}% - 10px)`"></div>
+    <div :class="['player-seekbar__slider', { 'player-seekbar__slider--disabled': !hasProgressBar }]" ref="slider">
+      <div class="player-seekbar__line" @click="click"><div></div></div>
+      <div class="player-seekbar__pointer" :style="`left: calc(${line}% - 10px)`" @mousedown="mousedown"></div>
     </div>
   </div>
 </template>
@@ -14,6 +14,7 @@
 <script>
 export default {
   name: 'player-seekbar',
+  inheritAttrs: false,
   props: {
     duration: {
       type: Number,
@@ -23,10 +24,18 @@ export default {
       type: Number,
       default: 0,
     },
+    type: String,
+    hasProgressBar: Boolean,
   },
+  data: () => ({
+    hasMove: false,
+    position: 0,
+    saveState: 0
+  }),
   computed: {
     line() {
-      return Math.round((this.progress * 1000) / this.duration) / 10;
+      const state = this.hasMove && this.position ? this.position : Math.round((this.progress * 1000) / this.duration) / 10;
+      return isNaN(state) ? 0 : state;
     },
     time() {
       var date = new Date(null);
@@ -41,13 +50,46 @@ export default {
   },
   methods: {
     click({ layerX }) {
-      const width = this.$refs.slider.clientWidth;
-      const percent = Math.round((layerX * 100) / width / 10) * 10;
+      if (this.hasProgressBar) {
+        const width = this.$refs.slider.clientWidth;
+        const percent = Math.round((layerX * 100) / width / 10) * 10;
+        this.position = percent;
+        this.sendRewind(percent);
+      }
+    },
+    onMouseMove({ clientX }) {
+      if (this.hasMove && this.$refs.slider) {
+        const { offsetLeft, clientWidth } = this.$refs.slider;
+        const left = offsetLeft;
+        const right = offsetLeft + clientWidth;
+        if (clientX > left && clientX < right) {
+          const percent = Math.round(((clientX - offsetLeft) * 100) / clientWidth);
+          this.position = percent;
+        }
+      }
+    },
+    sendRewind(percent) {
+      this.saveState = Math.round((this.duration / 100) * percent)
       this.$emit('command', {
         command: 'rewind',
-        position: this.duration / 100 * percent,
+        position: this.saveState,
       });
     },
+    mousedown() {
+      this.hasMove = true;
+    },
+    mouseup() {
+      this.hasMove = false;
+      this.sendRewind(this.position);
+    },
+  },
+  mounted() {
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mouseup', this.mouseup);
+  },
+  unmounted() {
+    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('mouseup', this.mouseup);
   },
 };
 </script>
@@ -59,18 +101,29 @@ export default {
     display: flex;
     justify-content: space-between;
     margin: 0 0 10px 0;
+    user-select: none;
   }
   &__slider {
+    user-select: none;
     position: relative;
-    cursor: pointer;
     height: 10px;
     display: flex;
     align-items: center;
+    &--disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
   }
   &__line {
-    height: 2px;
-    background-color: rgb(211, 120, 0);
+    height: 8px;
     width: 100%;
+    cursor: pointer;
+    padding: 3px 0;
+    div {
+      height: 2px;
+      background-color: rgb(211, 120, 0);
+      width: 100%;
+    }
   }
   &__pointer {
     position: absolute;
@@ -80,6 +133,7 @@ export default {
     height: 20px;
     width: 20px;
     border-radius: 50%;
+    cursor: grab;
   }
 }
 </style>

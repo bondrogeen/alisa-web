@@ -1,10 +1,15 @@
 <template>
-  <div class="player-volume" v-click-outside="outside">
+  <div
+    :class="['player-volume', { 'player-volume--hover': hover || value }]"
+    v-click-outside="outside"
+    @mouseover="hover = true"
+    @mouseleave="hover = false"
+  >
     <slot name="btn">
-      <i class="icon icon-volume-2" @click="value = true"></i>
+      <i class="icon icon-volume-2" @click="value = !value"></i>
     </slot>
     <div
-      :class="['player-volume__body', { 'player-volume__body--show': value }]"
+      :class="['player-volume__body', { 'player-volume__body--show': value || hover }]"
       ref="body"
       @wheel="wheel"
       @click="click"
@@ -26,6 +31,7 @@ export default {
   data: () => ({
     value: false,
     move: false,
+    hover: false,
   }),
   computed: {
     volumeTemp: {
@@ -65,6 +71,9 @@ export default {
 @import '@/assets/css/mixin';
 .player-volume {
   position: relative;
+  &--hover {
+    color: azure;
+  }
   i {
     @include icon-hover;
   }
