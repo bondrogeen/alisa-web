@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueSocketIO from 'vue-socket.io'
 import { io } from 'socket.io-client'
-import App from "./App.vue";
-import router from "./router";
 import store from "./store";
+import router from "./router";
+import App from "./App.vue";
 
 import '@/assets/css/norm.css'
 import '@/assets/css/main.scss'
@@ -38,7 +38,7 @@ import directives from './utils/directives'
 directives.forEach(directive => Vue.directive(directive.name, directive))
 
 new Vue({
-  router,
   store,
+  router,
   render: (h) => h(App),
 }).$mount("#app");

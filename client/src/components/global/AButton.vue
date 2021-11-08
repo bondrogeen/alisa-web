@@ -1,5 +1,14 @@
 <template>
-  <button class="a-button" :class="[`a-button--${color}`, { 'a-button--full': full }, { 'a-button--loading': loading }]" @click="click">
+  <button
+    class="a-button"
+    :class="[
+      `a-button--${color}`,
+      { 'a-button--full': full },
+      { 'a-button--loading': loading },
+      { 'a-button--disabled': disabled },
+    ]"
+    @click="click"
+  >
     <slot v-if="!loading">{{ text }}</slot>
     <a-spinner v-else />
   </button>
@@ -16,10 +25,11 @@ export default {
     color: String,
     full: Boolean,
     loading: Boolean,
+    disabled: Boolean,
   },
   methods: {
     click(event) {
-      if (this.loading) return;
+      if (this.loading || this.disabled) return;
       this.$emit('click', event);
     },
   },
@@ -48,7 +58,8 @@ export default {
     background-color: blueviolet;
     color: aliceblue;
   }
-  &--loading {
+  &--loading,
+  &--disabled {
     cursor: default;
     opacity: 0.7;
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="card-player">
     <div class="card-player__header hover">
-      <i class="icon icon-arrow-left" @click="$router.back()"></i>
+      <i class="icon icon-arrow-left" @click="$router.push('/')"></i>
       <h1>Play now</h1>
     </div>
     <div class="card-player__preview">

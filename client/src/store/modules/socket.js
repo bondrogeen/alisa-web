@@ -29,5 +29,6 @@ export default {
     getInfo: ({ devicesName }) => platform => devicesName[platform] || {},
     getState: ({ message }) => id => message[id]?.state || {},
     getDevices: ({ config }) => config?.devices || [],
+    getToken: ({ config }) => config?.token || '',
   },
 };

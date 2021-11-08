@@ -12,23 +12,31 @@
     </div>
     <div class="card-login__body">
       <template v-if="getToken">
-        <a-field label="Token">
-          <a-input type="text" placeholder="Enter your token" />
+        <a-field label="Token" :error="error">
+          <a-input v-model="token" type="text" placeholder="Enter your token" @focus="error = ''" />
         </a-field>
       </template>
       <template v-else>
         <a-field label="Login">
-          <a-input type="text" placeholder="Enter your login" />
+          <a-input v-model="username" type="text" placeholder="Enter your login" @focus="error = ''" />
         </a-field>
-        <a-field label="Password">
-          <a-input type="text" placeholder="Enter your password" />
+        <a-field :error="error" label="Password">
+          <a-input v-model="password" type="password" placeholder="Enter your password" @focus="error = ''" />
         </a-field>
       </template>
       <span v-if="getToken" @click="getToken = false">Get token</span>
       <!-- <span v-else @click="getToken = true">Login token</span> -->
     </div>
     <div class="card-login__footer">
-      <a-button full color="primary">{{ getToken ? 'Login' : 'Get token' }}</a-button>
+      <a-button
+        full
+        color="primary"
+        :disabled="notEmpty"
+        :loading="loading"
+        @click="getToken ? getDevices() : getYandexToken()"
+      >
+        {{ getToken ? 'Login' : 'Get token' }}
+      </a-button>
     </div>
   </div>
 </template>
@@ -38,7 +46,74 @@ export default {
   name: 'card-login',
   data: () => ({
     getToken: true,
+    username: '',
+    password: '',
+    token: '',
+    error: '',
+    loading: false,
   }),
+  computed: {
+    notEmpty() {
+      if (this.getToken) {
+        return !this.token;
+      } else {
+        return !this.username || !this.password;
+      }
+    },
+    isToken() {
+      return this.$store.getters['socket/getToken'];
+    },
+  },
+  sockets: {
+    token: function ({ status, message }) {
+      if (status === 'done') {
+        this.$router.push('/');
+      } else {
+        this.error = message || 'WTF';
+      }
+      this.loading = false;
+    },
+  },
+  methods: {
+    async getDevices() {
+      this.loading = true;
+      this.$socket.emit('token', { token: this.token });
+    },
+    async getYandexToken() {
+      if (this.username || this.password) {
+        this.loading = true;
+        const formData = new FormData();
+        const data = {
+          grant_type: 'password',
+          client_id: '23cabbbdc6cd418abb4b39c32c41195d',
+          client_secret: '53bc75238f0c4d08a118e51fe9203300',
+          username: this.username,
+          password: this.password,
+        };
+        for (const name in data) {
+          formData.append(name, data[name]);
+        }
+        try {
+          const data = await fetch('https://oauth.yandex.com/token', {
+            method: 'POST',
+            body: formData,
+          }).then(response => {
+            return response.json();
+          });
+          if (data?.error && !data?.access_token) {
+            this.error = data.error_description;
+          } else {
+            this.getToken = true;
+            this.token = data.access_token;
+          }
+          console.log(data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      this.loading = false;
+    },
+  },
 };
 </script>
 

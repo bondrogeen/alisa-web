@@ -1,5 +1,13 @@
 <template>
-  <input :type="type" autocomplete="token" class="a-input" name="token" :placeholder="placeholder"/>
+  <input
+    v-model="input"
+    :type="type"
+    autocomplete="token"
+    class="a-input"
+    name="token"
+    :placeholder="placeholder"
+    @focus="$emit('focus', $event)"
+  />
 </template>
 
 
@@ -9,13 +17,24 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     placeholder: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+    value: String,
+  },
+  computed: {
+    input: {
+      set(value) {
+        this.$emit('input', value);
+      },
+      get() {
+        return this.value;
+      },
+    },
+  },
 };
 </script>
 
@@ -38,9 +57,9 @@ export default {
   background: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   &::placeholder {
-  color: rgba(114, 114, 117, 0.514);
-  font-size: 0.7em;
-  font-weight: 400;
-}
+    color: rgba(114, 114, 117, 0.514);
+    font-size: 0.7em;
+    font-weight: 400;
+  }
 }
 </style>
