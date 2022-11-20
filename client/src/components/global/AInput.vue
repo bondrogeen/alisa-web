@@ -1,65 +1,49 @@
 <template>
-  <input
-    v-model="input"
-    :type="type"
-    autocomplete="token"
-    class="a-input"
-    name="token"
-    :placeholder="placeholder"
-    @focus="$emit('focus', $event)"
-  />
+	<input v-model="input" :type="type" autocomplete="token" class="a-input" name="token" :placeholder="placeholder" @focus="$emit('focus', $event)" />
 </template>
 
-
-<script>
-export default {
-  name: 'a-input',
-  props: {
-    type: {
-      type: String,
-      default: 'text',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    value: String,
-  },
-  computed: {
-    input: {
-      set(value) {
-        this.$emit('input', value);
-      },
-      get() {
-        return this.value;
-      },
-    },
-  },
-};
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+defineProps({
+	type: { type: String, default: 'text' },
+	placeholder: { type: String, default: '' },
+	value: { type: String, default: '' },
+});
+defineEmits(['focus']);
+// computed: {
+//   input: {
+//     set(value) {
+//       this.$emit('input', value);
+//     },
+//     get() {
+//       return this.value;
+//     },
+//   },
+// },
 </script>
 
 <style lang="scss" scoped>
 .a-input {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 28px;
-  height: 44px;
-  border: none;
-  border-bottom: 2px solid #8a2be2;
-  color: #000;
-  position: relative;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 28px;
+	height: 44px;
+	border: none;
+	border-bottom: 2px solid #8a2be2;
+	color: #000;
+	position: relative;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 
-  vertical-align: top;
-  outline: 0;
-  background: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  &::placeholder {
-    color: rgba(114, 114, 117, 0.514);
-    font-size: 0.7em;
-    font-weight: 400;
-  }
+	vertical-align: top;
+	outline: 0;
+	background: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	&::placeholder {
+		color: rgba(114, 114, 117, 0.514);
+		font-size: 0.7em;
+		font-weight: 400;
+	}
 }
 </style>

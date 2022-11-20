@@ -1,44 +1,20 @@
-import Vue from "vue";
-import VueSocketIO from 'vue-socket.io'
-import { io } from 'socket.io-client'
-import store from "./store";
-import router from "./router";
-import App from "./App.vue";
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
-import '@/assets/css/norm.css'
-import '@/assets/css/main.scss'
+import App from './App.vue';
+import router from './router';
+import components from '@/components/global';
 
-console.log(window.location.href)
+import '@/assets/css/norm.css';
+import '@/assets/css/main.scss';
 
-Vue.use(new VueSocketIO({
-  debug: false,
-  connection: io(window.location.href),
-  vuex: {
-    store,
-    actionPrefix: "socket_",
-    // mutationPrefix: "socket."
-  }
-})
-);
+const pinia = createPinia();
 
 
-import pkg from '../package.json'
-Vue.prototype.$config = {
-  isDev: process.env.NODE_ENV === 'development',
-  version: pkg.version
-}
+const app = createApp(App);
+components(app);
+app.use(pinia);
+app.use(router);
+app.mount('#app');
 
-Vue.config.productionTip = false;
 
-// import global components
-import components from '@/components/global'
-components.forEach(component => Vue.component(component.name, component))
-// import global directives
-import directives from './utils/directives'
-directives.forEach(directive => Vue.directive(directive.name, directive))
-
-new Vue({
-  store,
-  router,
-  render: (h) => h(App),
-}).$mount("#app");

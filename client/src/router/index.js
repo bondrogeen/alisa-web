@@ -1,20 +1,17 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import auth from '../middleware/auth';
-import log from '../middleware/log';
+import { createRouter, createWebHistory } from "vue-router";
+import auth from '@/middleware/auth';
+import log from '@/middleware/log';
 
-const originalPush = VueRouter.prototype.push;
-VueRouter.prototype.push = function push (location) {
-  return originalPush.call(this, location).catch(err => err)
-};
-
-Vue.use(VueRouter);
+// const originalPush = VueRouter.prototype.push;
+// VueRouter.prototype.push = function push (location) {
+//   return originalPush.call(this, location).catch(err => err)
+// };
 
 const routes = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home.vue"),
+    component: () => import("../views/HomeView.vue"),
     meta: {
       middleware: [auth],
     },
@@ -22,19 +19,19 @@ const routes = [
   {
     path: '/login',
     name: "Login",
-    component: () => import("../views/Login.vue"),
+    component: () => import("../views/LoginView.vue"),
     meta: {
       middleware: [log],
     },
   },
-  {
-    path: '/player/:id',
-    name: "Player",
-    component: () => import("../views/Player.vue"),
-    meta: {
-      middleware: [auth, log],
-    },
-  },
+  // {
+  //   path: '/player/:id',
+  //   name: "Player",
+  //   component: () => import("../views/PlayerView.vue"),
+  //   meta: {
+  //     middleware: [auth, log],
+  //   },
+  // },
 ];
 
 function nextFactory (context, middleware, index) {
@@ -47,9 +44,8 @@ function nextFactory (context, middleware, index) {
   };
 }
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

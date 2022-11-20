@@ -3,7 +3,7 @@
     <div class="footer__copyright">
       <p>{{ `© ${new Date().getFullYear()} «Alisa web», ` }}</p>
       <a href="https://github.com/bondrogeen/alisa-web" target="blank"><i class="icon icon-github"></i></a>
-      <span class="footer__version">ver.{{ $config.version }}</span>
+      <span class="footer__version">ver.{{  }}</span>
     </div>
   </div>
 </template>

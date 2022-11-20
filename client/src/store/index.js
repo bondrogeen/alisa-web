@@ -1,12 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
-Vue.use(Vuex);
+import { storeToRefs } from 'pinia';
 
-import logging from './modules/logging';
-import socket from './modules/socket';
-export default new Vuex.Store({
-  modules: {
-    logging,
-    socket
-  },
-});
+import appStore from './AppStore';
+import socketStore from './SocketStore';
+
+export { socketStore, appStore, storeToRefs };
