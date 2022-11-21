@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-defineProps({
+import { defineProps, defineEmits } from 'vue';
+const props = defineProps({
 	text: { type: String, default: '' },
 	color: { type: String, default: '' },
 	full: { type: Boolean, default: false },
@@ -15,9 +15,11 @@ defineProps({
 	disabled: { type: Boolean, default: false },
 });
 
+const emit = defineEmits(['click']);
+
 const click = (event) => {
-	if (this.loading || this.disabled) return;
-	this.$emit('click', event);
+	if (props.loading || props.disabled) return;
+	emit('click', event);
 };
 </script>
 
@@ -47,10 +49,11 @@ const click = (event) => {
 	&--disabled {
 		cursor: default;
 		opacity: 0.7;
+		background-color: grey;
 	}
 	&:hover {
 		// opacity: 0.7;
-		box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+		// box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 	}
 }
 </style>

@@ -28,7 +28,7 @@
 			<!-- <span v-else @click="getToken = true">Login token</span> -->
 		</div>
 		<div class="card-login__footer">
-			<a-button full color="primary" :disabled="notEmpty" :loading="loading" @click="getToken ? getDevices() : getYandexToken()">
+			<a-button full color="primary" :disabled="disabled" :loading="loading" @click="getToken ? onConection() : onYandexToken()">
 				{{ getToken ? 'Login' : 'Get token' }}
 			</a-button>
 		</div>
@@ -36,77 +36,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const getToken = ref(true);
-const username = ref('');
-const password = ref('');
-const token = ref('');
-const error = ref('');
-const loading = ref(false);
+import { computed } from 'vue';
+import { serviceStore, storeToRefs } from '@/store/';
 
-// 	computed: {
-// 		notEmpty() {
-// 			if (this.getToken) {
-// 				return !this.token;
-// 			} else {
-// 				return !this.username || !this.password;
-// 			}
-// 		},
-// 		isToken() {
-// 			return this.$store.getters['socket/getToken'];
-// 		},
-// 	},
-// 	sockets: {
-// 		token: function ({ status, message }) {
-// 			if (status === 'done') {
-// 				this.$router.push('/');
-// 			} else {
-// 				this.error = message || 'WTF';
-// 			}
-// 			this.loading = false;
-// 		},
-// 	},
-// 	methods: {
-// 		async getDevices() {
-// 			this.loading = true;
-// 			this.$socket.emit('token', { token: this.token });
-// 		},
-// 		async getYandexToken() {
-// 			if (this.username || this.password) {
-// 				this.loading = true;
-// 				const formData = new FormData();
-// 				const data = {
-// 					grant_type: 'password',
-// 					client_id: '23cabbbdc6cd418abb4b39c32c41195d',
-// 					client_secret: '53bc75238f0c4d08a118e51fe9203300',
-// 					username: this.username,
-// 					password: this.password,
-// 				};
-// 				for (const name in data) {
-// 					formData.append(name, data[name]);
-// 				}
-// 				try {
-// 					const data = await fetch('https://oauth.yandex.com/token', {
-// 						method: 'POST',
-// 						body: formData,
-// 					}).then((response) => {
-// 						return response.json();
-// 					});
-// 					if (data?.error && !data?.access_token) {
-// 						this.error = data.error_description;
-// 					} else {
-// 						this.getToken = true;
-// 						this.token = data.access_token;
-// 					}
-// 					console.log(data);
-// 				} catch (error) {
-// 					console.log(error);
-// 				}
-// 			}
-// 			this.loading = false;
-// 		},
-// 	},
-// };
+const store = serviceStore();
+const { onYandexToken, onConection } = store;
+const { token, getToken, username, password, error, loading } = storeToRefs(store);
+
+const disabled = computed(() => Boolean(!username.value || !password.value));
 </script>
 
 <style lang="scss" scoped>
@@ -141,6 +78,7 @@ const loading = ref(false);
 		display: flex;
 		justify-content: center;
 		flex: 0 0 130px;
+		font-size: 24px;
 		img {
 			margin: 10px auto;
 		}

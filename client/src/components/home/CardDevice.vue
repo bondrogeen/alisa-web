@@ -15,54 +15,57 @@
 		<div class="device__body">
 			<div class="device__inner">
 				<div class="device__image">
-					<span :class="['device__dot', `device__dot--${status}`]" :title="status"></span>
-					<img height="100" width="100" :src="info.image" :alt="info.name" />
+					<!-- <span :class="['device__dot', `device__dot--${status}`]" :title="status"></span> -->
+					<img height="100" width="100" :src="image" :alt="platform" />
 				</div>
-				<p class="device__title">{{ info.type }}</p>
-				<p class="device__subtitle">{{ info.name }}</p>
+				<p class="device__title">{{ type }}</p>
+				<p class="device__subtitle">{{ platform }}</p>
 				<p class="device__info">{{ `${ip}:${port}` }}</p>
 			</div>
 		</div>
 		<div class="device__footer">
-			<a-button full color="primary" @click="click">Player</a-button>
-			<a-button full color="primary" @click="click">Control</a-button>
+			<a-button full color="primary" @click="onPlayer">Player</a-button>
+			<a-button full color="primary" @click="onControl">Control</a-button>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed,  } from 'vue';
+import { useRouter } from 'vue-router';
+import platforms from '@/utils/platforms';
 
-defineProps({
+
+const props = defineProps({
 	id: { type: String, default: '' },
 	ip: { type: String, default: '' },
 	platform: { type: String, default: '' },
 	port: { type: Number, default: 0 },
-	state: { type: Object, default: () => ({}) },
+	data: { type: Object, default: () => ({}) },
 });
+
+const router = useRouter();
 
 const menu = false;
 const menus = [
 	{ title: 'Remove', path: '' },
 	{ title: 'Exit', path: '' },
 ];
-// const iconStatus = {
-// 	BUSY: 'icon-alert-circle',
-// 	LISTENING: 'icon-mic',
-// 	SPEAKING: 'icon-volume-1',
-// };
-
-const info = computed(() => this.$store.getters['socket/getInfo'](this.platform));
-// const message = computed(() => this.$store.getters['socket/getMessage'](this.id));
-const status = computed(() => this.state?.status || 'close');
-const statusIcon = computed(() => {
-	const t = this.message?.state?.aliceState || '';
-	return this.iconStatus[t];
-});
-
-const click = () => {
-	this.$router.push('player/' + this.id);
+const iconStatus = {
+	BUSY: 'icon-alert-circle',
+	LISTENING: 'icon-mic',
+	SPEAKING: 'icon-volume-1',
 };
+
+const image = computed(() => platforms?.[props.platform]?.image || '');
+// const name = computed(() => platforms?.[props.platform]?.name || '');
+const type = computed(() => platforms?.[props.platform]?.type || '');
+// const message = computed(() => this.$store.getters['socket/getMessage'](this.id));
+// const status = computed(() => this.state?.status || 'close');
+const statusIcon = computed(() => iconStatus[props.data?.state?.aliceState || '']);
+
+const onPlayer = () => router.push('player/' + props.id);
+const onControl = () => router.push('control/' + props.id);
 </script>
 
 <style lang="scss" scoped>
@@ -124,6 +127,7 @@ const click = () => {
 		flex: 1 1 auto;
 		display: flex;
 		justify-content: center;
+		margin-bottom: 20px;
 	}
 	&__header {
 		flex: 0 0 20px;

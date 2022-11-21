@@ -19,7 +19,6 @@ import CardForm from '@/components/login/CardForm';
 	justify-content: center;
 	&__inner {
 		width: 400px;
-		height: 400px;
 	}
 }
 </style>

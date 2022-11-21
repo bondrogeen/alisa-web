@@ -22,6 +22,8 @@ defineProps({
 .a-field {
 	&__label {
 		color: black;
+		font-weight: 600;
+		font-size: 18px;
 	}
 	&__hint {
 		height: 20px;

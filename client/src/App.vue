@@ -3,10 +3,8 @@
 		<div class="app__header" @click="onClick">
 			<AppHeader />
 		</div>
-		{{ devices }}
-		{{ isConnected }}
 		<div class="app__body">
-			<router-view />
+			<router-view :devices="devices" :onSend="onSend" />
 		</div>
 		<div class="app__footer">
 			<AppFooter />
@@ -24,7 +22,7 @@ import AppFooter from '@/components/app/AppFooter';
 const store = socketStore();
 const { onMessage, onConnect, onDisconnect, onSend } = store;
 // const app = appStore();
-const { socket, devices, isConnected } = storeToRefs(store);
+const { socket, devices } = storeToRefs(store);
 
 socket.value = io();
 socket.value.on('connect', onConnect);

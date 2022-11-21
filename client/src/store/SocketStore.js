@@ -2,13 +2,17 @@ import { defineStore } from 'pinia';
 
 export default defineStore('socket', {
 	state: () => ({
-		devices: [],
+		devices: {},
 		isConnected: false,
 		socket: null,
 	}),
 	actions: {
-		onMessage(data) {
-			console.log(data);
+		onMessage(message) {
+			const { id, ip, data } = message;
+			if (id && ip && data) {
+				this.devices[id] = message;
+			}
+			console.log(message);
 		},
 		onSend(id, message) {
 			console.log(id, message);
@@ -22,5 +26,8 @@ export default defineStore('socket', {
 			this.isConnected = false;
 			console.log(socket);
 		},
+	},
+	getters: {
+		isDevice: (state) => Boolean(Object.keys(state.devices).length),
 	},
 });
