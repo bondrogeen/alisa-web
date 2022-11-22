@@ -2,10 +2,11 @@
 	<div class="device">
 		<div class="device__header">
 			<div class="device__menu">
-				<a-dropdown v-model="menu" :menus="menus" @click="menu = true">
-					<template #btn>
-						<i class="icon icon-more-horizontal"></i>
+				<a-dropdown>
+					<template #activator="{ on }">
+						<i class="icon icon-more-horizontal" v-on="on"></i>
 					</template>
+					<a-list :list="menus"></a-list>
 				</a-dropdown>
 			</div>
 			<div class="device__status">
@@ -31,10 +32,9 @@
 </template>
 
 <script setup>
-import { defineProps, computed,  } from 'vue';
+import { defineProps, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import platforms from '@/utils/platforms';
-
 
 const props = defineProps({
 	id: { type: String, default: '' },
@@ -46,10 +46,9 @@ const props = defineProps({
 
 const router = useRouter();
 
-const menu = false;
 const menus = [
-	{ title: 'Remove', path: '' },
-	{ title: 'Exit', path: '' },
+	{ name: 'Remove', path: '' },
+	{ name: 'Exit', path: '' },
 ];
 const iconStatus = {
 	BUSY: 'icon-alert-circle',

@@ -4,11 +4,8 @@
 			<i class="icon icon-chevron-left"></i>
 		</div>
 		<div class="card-login__header">
-			<div>
-				<img width="70px" height="70px" src="/images/logo-alisa.jpg" alt="" />
-				<p v-if="getToken">Log in wich Yandex Token</p>
-				<p v-else>Log in wich Yandex ID</p>
-			</div>
+			<img width="70" height="70" src="/images/logo-alisa.jpg" alt="" />
+			<span>{{ getToken ? 'Log' : 'Get Yandex token ' }}</span>
 		</div>
 		<div class="card-login__body">
 			<template v-if="getToken">
@@ -25,11 +22,10 @@
 				</a-field>
 			</template>
 			<span v-if="getToken" @click="getToken = false">Get token</span>
-			<!-- <span v-else @click="getToken = true">Login token</span> -->
 		</div>
 		<div class="card-login__footer">
 			<a-button full color="primary" :disabled="disabled" :loading="loading" @click="getToken ? onConection() : onYandexToken()">
-				{{ getToken ? 'Login' : 'Get token' }}
+				{{ getToken ? 'Connecting' : 'Get token' }}
 			</a-button>
 		</div>
 	</div>
@@ -75,9 +71,7 @@ const disabled = computed(() => Boolean(!username.value || !password.value));
 		}
 	}
 	&__header {
-		display: flex;
-		justify-content: center;
-		flex: 0 0 130px;
+		text-align: center;
 		font-size: 24px;
 		img {
 			margin: 10px auto;

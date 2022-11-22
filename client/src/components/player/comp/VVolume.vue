@@ -1,5 +1,5 @@
 <template>
-	<div v-click-outside="outside" :class="['player-volume', { 'player-volume--hover': hover || value }]" @mouseover="hover = true" @mouseleave="hover = false">
+	<div v-outside="outside" :class="['player-volume', { 'player-volume--hover': hover || value }]" @mouseover="hover = true" @mouseleave="hover = false">
 		<slot name="btn">
 			<i class="icon icon-volume-2" @click="value = !value"></i>
 		</slot>
@@ -54,14 +54,10 @@ const wheel = ({ deltaY }) => {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/css/mixin';
 .player-volume {
 	position: relative;
 	&--hover {
 		color: azure;
-	}
-	i {
-		@include icon-hover;
 	}
 	&__body {
 		position: absolute;
@@ -85,6 +81,9 @@ const wheel = ({ deltaY }) => {
 		border-radius: 15px;
 		width: 100%;
 		height: 100%;
+	}
+	.icon {
+		font-size: 32px;
 	}
 }
 </style>

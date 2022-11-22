@@ -26,12 +26,11 @@ const command = (comm, isTrue) => {
 };
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/css/mixin';
+<style lang="scss">
 .player-track {
 	.icon {
-		@include icon-hover;
 		margin: 0 10px;
+		font-size: 32px;
 	}
 }
 </style>

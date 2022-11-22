@@ -89,7 +89,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-@import '@/assets/css/mixin';
 .player-seekbar {
 	&__time {
 		display: flex;

@@ -1,0 +1,77 @@
+@mixin vue-anim($class-name, $keyframe-name) {
+	.#{$class-name}-enter-active {
+		animation: #{$keyframe-name}In 0.3s ease-in-out both;
+	}
+	.#{$class-name}-leave-active {
+		animation: #{$keyframe-name}Out 0.3s ease-in-out both;
+	}
+}
+
+@keyframes slideUpIn {
+	0% {
+		transform: translateY(-6px);
+		transform-origin: 0 0;
+
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0);
+		transform-origin: 0 0;
+
+		opacity: 1;
+	}
+}
+
+@keyframes slideUpOut {
+	0% {
+		transform: translateY(0);
+		transform-origin: 0% 0%;
+
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateY(-6px);
+		transform-origin: 0% 0%;
+
+		opacity: 0;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@include vue-anim(slide-up, slideUp);
+@include vue-anim(fade, fade);
+
+.flip-list-move {
+	transition: transform 1s;
+}
+
+.fade-enter-active,
+.fade-down-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+}

@@ -7,7 +7,7 @@ import components from '@/components/global';
 import directives from '@/utils/directives';
 
 import '@/assets/css/norm.css';
-import '@/assets/css/main.scss';
+import '@/assets/scss/main.scss';
 
 const pinia = createPinia();
 

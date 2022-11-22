@@ -1,14 +1,12 @@
-// function getCookie (name) {
-//     const value = `; ${document.cookie}`;
-//     const parts = value.split(`; ${name}=`);
-//     if (parts.length === 2) return parts.pop().split(';').shift();
-// }
+import { socketStore } from '@/store/';
 
 export default function auth({ next, router }) {
+	const store = socketStore();
+
 	console.log(router);
-	// console.log(getCookie('connecting'));
-	// if (getCookie('connecting') !== 'true') {
-	//     return router.push('/login');
+	console.log(store.isToken);
+	// if (!store.isToken) {
+	// 	return router.push('/login');
 	// }
 	return next();
 }

@@ -1,23 +1,29 @@
 <template>
 	<div class="header">
-		<div class="header__brand" @click="$router.push({ name: 'Home' })">Alisa Web</div>
-		<div class="header__center"></div>
-		<div class="header__profile">
-			<i v-if="!token" class="icon icon-user"></i>
-			<a-dropdown v-else v-model="settings" :menus="menus">
-				<template #btn>
-					<i class="icon icon-settings" @click="settings = true"></i>
-				</template>
-			</a-dropdown>
+		<div class="header__inner container">
+			<div class="header__brand" @click="$router.push({ name: 'Home' })">Alisa Web</div>
+			<div class="header__center"></div>
+			<div class="header__profile">
+				<a-dropdown>
+					<template #activator="{ on }">
+						<i class="icon" :class="token ? 'icon-settings' : 'icon-user'" @click="on.click"></i>
+					</template>
+					<a-list :list="menus"></a-list>
+				</a-dropdown>
+			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-const settings = false;
+import { defineProps } from 'vue';
+defineProps({
+	token: { type: String, default: '' },
+});
+
 const menus = [
-	{ title: 'Profile', icon: 'icon-user', path: '' },
-	{ title: 'Exit', icon: 'icon-log-out', path: '' },
+	{ name: 'Profile', icon: 'icon-user', path: '' },
+	{ name: 'Exit', icon: 'icon-log-out', path: '' },
 ];
 </script>
 
@@ -25,11 +31,13 @@ const menus = [
 .header {
 	height: 100%;
 	background: #3c1199;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 20px;
 	user-select: none;
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
 	&__brand {
 		font-size: 1.5em;
 		font-weight: 700;

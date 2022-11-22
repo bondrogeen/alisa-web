@@ -1,7 +1,7 @@
 <template>
 	<div class="app">
-		<div class="app__header" @click="onClick">
-			<AppHeader />
+		<div class="app__header">
+			<AppHeader v-bind="init" />
 		</div>
 		<div class="app__body">
 			<router-view :devices="devices" :onSend="onSend" />
@@ -20,21 +20,15 @@ import AppHeader from '@/components/app/AppHeader';
 import AppFooter from '@/components/app/AppFooter';
 
 const store = socketStore();
-const { onMessage, onConnect, onDisconnect, onSend } = store;
+const { onMessage, onConnect, onDisconnect, onSend, onInit } = store;
 // const app = appStore();
-const { socket, devices } = storeToRefs(store);
+const { socket, devices, init } = storeToRefs(store);
 
 socket.value = io();
 socket.value.on('connect', onConnect);
 socket.value.on('disconnect', onDisconnect);
 socket.value.on('data', onMessage);
-
-const onClick = () => {
-	onSend('192.168.10.22', {
-		command: 'setVolume',
-		volume: 0.3,
-	});
-};
+socket.value.on('init', onInit);
 </script>
 
 <style lang="scss" scoped>

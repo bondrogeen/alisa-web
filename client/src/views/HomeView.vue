@@ -1,8 +1,8 @@
 <template>
-	<div class="page-home">
+	<div class="page-home container">
 		<div class="page-home__title">My devices</div>
 		<div class="page-home__devices">
-			<div v-for="(device, key) in devices" :key="key" class="page-home__list">
+			<div v-for="(device, key) in devices" :key="key" class="page-home__card">
 				<CardDevice v-bind="device" />
 			</div>
 			<!-- <div v-if="!devices.length" class="page-home__list page-home__empty">
@@ -47,8 +47,9 @@ defineProps({
 			color: rgb(8, 8, 14);
 		}
 	}
-	&__list {
+	&__card {
 		width: 100%;
+		max-width: 300px;
 		margin: 15px 0;
 	}
 	&__devices {
@@ -61,27 +62,6 @@ defineProps({
 		flex: 0 0 80px;
 		font-size: 24px;
 		line-height: 28px;
-	}
-}
-@media screen and (min-width: 600px) {
-	.page-home {
-		&__list {
-			width: 48%;
-		}
-	}
-}
-@media screen and (min-width: 900px) {
-	.page-home {
-		&__list {
-			width: 32%;
-		}
-	}
-}
-@media screen and (min-width: 1200px) {
-	.page-home {
-		&__list {
-			width: 18%;
-		}
 	}
 }
 </style>

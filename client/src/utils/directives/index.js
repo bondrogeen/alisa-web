@@ -1,3 +1,3 @@
-import clickOutside from './clickOutside';
+import outside from './outside';
 
-export default [clickOutside];
+export default [outside];

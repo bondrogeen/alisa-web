@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,100;1,300;1,700&display=swap');
-@import url('./font.scss');
+@import url('../css/font.css');
+@import url('./anim.scss');
 
 html,
 #app {
@@ -10,4 +11,11 @@ body {
 	height: 100%;
 	font-family: 'Roboto', sans-serif;
 	color: azure;
+}
+
+.container {
+	max-width: 960px;
+	margin: 0 auto;
+	width: 100%;
+	padding: 0 20px;
 }

@@ -7,15 +7,16 @@ export default app => {
   const io = new Server(server);
 
   io.on('connection', socket => {
+    console.log(alisa.getState())
+    socket.emit('init', alisa.getState());
+
     alisa.on('data', data => {
       socket.emit('data', data);
     });
 
     socket.on('send', (id, message) => alisa.onSend(id, message));
 
-    socket.on('token', ({ token }) => {
-
-    });
+    socket.on('token', ({ token }) => {});
     socket.on('disconnect', () => {
       // alisa.disconection();
     });
