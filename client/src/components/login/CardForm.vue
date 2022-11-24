@@ -1,48 +1,63 @@
 <template>
 	<div class="card-login">
-		<div v-if="!getToken" class="card-login__fab" @click="getToken = true">
+		<div v-if="!isFormToken" class="card-login__fab" @click="isFormToken = true">
 			<i class="icon icon-chevron-left"></i>
 		</div>
 		<div class="card-login__header">
 			<img width="70" height="70" src="/images/logo-alisa.jpg" alt="" />
-			<span>{{ getToken ? 'Log' : 'Get Yandex token ' }}</span>
+			<span>{{ isFormToken ? 'Log' : 'Get Yandex token ' }}</span>
 		</div>
 		<div class="card-login__body">
-			<template v-if="getToken">
+			<template v-if="isFormToken">
 				<a-field label="Token" :error="error">
 					<a-input v-model="token" type="text" placeholder="Enter your token" @focus="error = ''" />
 				</a-field>
 			</template>
 			<template v-else>
 				<a-field label="Login">
-					<a-input v-model="username" type="text" placeholder="Enter your login" @focus="error = ''" />
+					<a-input v-model="form.username" type="text" placeholder="Enter your login" @focus="error = ''" />
 				</a-field>
 				<a-field :error="error" label="Password">
-					<a-input v-model="password" type="password" placeholder="Enter your password" @focus="error = ''" />
+					<a-input v-model="form.password" type="password" placeholder="Enter your password" @focus="error = ''" />
 				</a-field>
 			</template>
-			<span v-if="getToken" @click="getToken = false">Get token</span>
+			<span v-if="isFormToken" @click="isFormToken = false">Get token</span>
 		</div>
 		<div class="card-login__footer">
-			<a-button full color="primary" :disabled="disabled" :loading="loading" @click="getToken ? onConection() : onYandexToken()">
-				{{ getToken ? 'Connecting' : 'Get token' }}
+			<a-button full color="primary" :disabled="disabled" :loading="loading" @click="isFormToken ? onConection() : onYandexToken()">
+				{{ isFormToken ? 'Connecting' : 'Get token' }}
 			</a-button>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import { serviceStore, storeToRefs } from '@/store/';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const store = serviceStore();
-const { onYandexToken, onConection } = store;
-const { token, getToken, username, password, error, loading } = storeToRefs(store);
 
-const disabled = computed(() => Boolean(!username.value || !password.value));
+const { token, error, loading } = storeToRefs(store);
+const form = ref({ username: '', password: '' });
+const isFormToken = ref(true);
+
+const disabled = computed(() => Boolean(isFormToken.value ? !token.value : !form.value.username || !form.value.password));
+
+const onConection = async () => {
+	const res = await store.onConection();
+	console.log(res);
+	if (res) router.push('/');
+};
+
+const onYandexToken = async () => {
+	const res = await store.onYandexToken(form);
+	if (res) isFormToken.value = false;
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card-login {
 	height: 100%;
 	width: 100%;

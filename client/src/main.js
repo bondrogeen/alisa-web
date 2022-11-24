@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import { serviceStore } from '@/store/';
 
 import App from './App.vue';
 import router from './router';
@@ -10,11 +11,15 @@ import '@/assets/css/norm.css';
 import '@/assets/scss/main.scss';
 
 const pinia = createPinia();
-
 const app = createApp(App);
 
 directives.forEach((directive) => app.directive(directive.name, directive));
 components(app);
-app.use(pinia);
-app.use(router);
-app.mount('#app');
+
+(async () => {
+	app.use(pinia);
+	const store = serviceStore();
+	await store.onInit();
+	app.use(router);
+	app.mount('#app');
+})();

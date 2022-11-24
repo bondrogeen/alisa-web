@@ -1,5 +1,5 @@
 <template>
-	<div class="page-player">
+	<div class="page-player" @click="onClick">
 		<div class="page-player__inner">
 			<VPlayer v-bind="data" @command="onCommand" />
 		</div>
@@ -20,6 +20,31 @@ const route = useRoute();
 const id = route.params.id;
 const data = computed(() => props.devices[id]?.data || {});
 const onCommand = (message) => props.onSend(id, message);
+
+const onClick = () => {
+	console.log('sdsdsdsd');
+	// onCommand({
+	// 	command: 'playMusic',
+	// 	id: '44731403',
+	// 	type: 'track',
+	// });
+	// onCommand({
+	// 	command: 'serverAction',
+	// 	serverActionEventPayload: {
+	// 		type: 'server_action',
+	// 		name: 'bass_action',
+	// 		payload: {
+	// 			data: {
+	// 				video_descriptor: {
+	// 					provider_item_id: 'S_n8CCgk8D0',
+	// 					provider_name: 'youtube',
+	// 				},
+	// 			},
+	// 			name: 'quasar.play_video_by_descriptor',
+	// 		},
+	// 	},
+	// });
+};
 </script>
 
 <style lang="scss" scoped>

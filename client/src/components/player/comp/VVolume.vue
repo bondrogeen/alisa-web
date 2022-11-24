@@ -84,6 +84,7 @@ const wheel = ({ deltaY }) => {
 	}
 	.icon {
 		font-size: 32px;
+		cursor: pointer;
 	}
 }
 </style>

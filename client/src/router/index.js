@@ -1,11 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import auth from '@/middleware/auth';
-import log from '@/middleware/log';
-
-// const originalPush = VueRouter.prototype.push;
-// VueRouter.prototype.push = function push (location) {
-//   return originalPush.call(this, location).catch(err => err)
-// };
+import login from '@/middleware/login';
 
 const routes = [
 	{
@@ -21,7 +16,7 @@ const routes = [
 		name: 'Login',
 		component: () => import('../views/LoginView.vue'),
 		meta: {
-			middleware: [log],
+			middleware: [login],
 		},
 	},
 	{
@@ -29,7 +24,7 @@ const routes = [
 		name: 'Player',
 		component: () => import('../views/PlayerView.vue'),
 		meta: {
-			middleware: [auth, log],
+			middleware: [auth],
 		},
 	},
 ];

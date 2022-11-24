@@ -7,7 +7,7 @@ const app = express();
 function start() {
   try {
     app.use(express.json());
-    // app.use(express.static('../www'));
+    app.use(express.static('../www'));
     app.use('/v1/api/', router);
 
     const server = socket(app);

@@ -6,5 +6,6 @@ const router = Router();
 router.post('/token', service.token);
 router.post('/conection', service.conection);
 router.get('/scan', service.scan);
+router.get('/init', service.init);
 
 export default router;

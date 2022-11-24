@@ -18,6 +18,7 @@ import CardDevice from '../components/home/CardDevice';
 
 defineProps({
 	devices: { type: Array, default: () => [] },
+	init: { type: Object, default: () => ({}) },
 });
 </script>
 

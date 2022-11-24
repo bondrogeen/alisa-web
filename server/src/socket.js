@@ -8,7 +8,6 @@ export default app => {
 
   io.on('connection', socket => {
     console.log(alisa.getState())
-    socket.emit('init', alisa.getState());
 
     alisa.on('data', data => {
       socket.emit('data', data);

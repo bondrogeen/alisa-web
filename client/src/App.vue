@@ -21,8 +21,7 @@ import AppFooter from '@/components/app/AppFooter';
 
 const store = socketStore();
 const { onMessage, onConnect, onDisconnect, onSend, onInit } = store;
-// const app = appStore();
-const { socket, devices, init } = storeToRefs(store);
+const { socket, devices } = storeToRefs(store);
 
 socket.value = io();
 socket.value.on('connect', onConnect);

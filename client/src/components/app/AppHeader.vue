@@ -8,9 +8,10 @@
 					<template #activator="{ on }">
 						<i class="icon" :class="token ? 'icon-settings' : 'icon-user'" @click="on.click"></i>
 					</template>
-					<a-list :list="menus"></a-list>
+					<a-list :list="menus" @click="onList"></a-list>
 				</a-dropdown>
 			</div>
+			{{ token }}
 		</div>
 	</div>
 </template>
@@ -19,12 +20,18 @@
 import { defineProps } from 'vue';
 defineProps({
 	token: { type: String, default: '' },
+	devices: { type: Array, default: () => [] },
 });
 
 const menus = [
+	{ name: 'Login', icon: 'icon-user', path: '' },
 	{ name: 'Profile', icon: 'icon-user', path: '' },
 	{ name: 'Exit', icon: 'icon-log-out', path: '' },
 ];
+
+const onList = (item) => {
+	console.log(item);
+};
 </script>
 
 <style lang="scss" scoped>

@@ -5,7 +5,9 @@
 			<h1>Play now</h1>
 		</div>
 		<div class="card-player__preview">
-			<img height="200" width="200" :src="`https://${coverURI}`" alt="" />
+			<a :href="`https://music.yandex.ru/album/${album}/track/${id}`" target="_blank">
+				<img height="200" width="200" :src="`https://${coverURI}`" alt="" />
+			</a>
 		</div>
 		<div class="card-player__body">
 			<div>
@@ -48,30 +50,23 @@ const props = defineProps({
 	state: { type: Object, default: () => {} },
 	supported_features: { type: Object, default: () => {} },
 	unsupported_features: { type: Object, default: () => {} },
-	
 });
 
 const emit = defineEmits(['command']);
 
-const isPlaying = computed(() => {
-	return props.state?.playing ?? false;
-});
-const playerState = computed(() => {
-	return props.state?.playerState || {};
-});
-const isMy = computed(() => {
-	return (playerState.value?.playlistType ?? '') === 'Playlist';
-});
-const volume = computed(() => {
-	return props.state?.volume || 0;
-});
+const isPlaying = computed(() => props.state?.playing || false);
+const playerState = computed(() => props.state?.playerState || {});
+const isMy = computed(() => (playerState.value?.playlistType || '') === 'Playlist');
+const volume = computed(() => props.state?.volume || 0);
+
+const id = computed(() => playerState.value?.id || 0);
+const album = computed(() => coverURI.value.match(/(\d*)-\d\//)?.[1]);
+
 const coverURI = computed(() => {
 	const url = extra.value?.coverURI || '';
 	return url.replace('%%', '200x200');
 });
-const extra = computed(() => {
-	return playerState.value?.extra || {};
-});
+const extra = computed(() => playerState.value?.extra || {});
 
 const text = (text) => emit('command', { command: 'sendText', text });
 </script>

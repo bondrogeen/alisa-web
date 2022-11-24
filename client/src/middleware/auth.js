@@ -1,12 +1,3 @@
-import { socketStore } from '@/store/';
+import { serviceStore } from '@/store/';
 
-export default function auth({ next, router }) {
-	const store = socketStore();
-
-	console.log(router);
-	console.log(store.isToken);
-	// if (!store.isToken) {
-	// 	return router.push('/login');
-	// }
-	return next();
-}
+export default ({ next }) => (serviceStore().isToken ? next() : next({ name: 'Login' }));

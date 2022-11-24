@@ -5,7 +5,6 @@ export default defineStore('socket', {
 		devices: {},
 		isConnected: false,
 		socket: null,
-		init: null,
 	}),
 	actions: {
 		onMessage(message) {
@@ -13,10 +12,6 @@ export default defineStore('socket', {
 			if (id && ip && data) {
 				this.devices[id] = message;
 			}
-			console.log(message);
-		},
-		onInit(message) {
-			this.init = message;
 			console.log(message);
 		},
 		onSend(id, message) {
@@ -34,6 +29,5 @@ export default defineStore('socket', {
 	},
 	getters: {
 		isDevice: (state) => Boolean(Object.keys(state.devices).length),
-		isToken: (state) => Boolean(state?.init?.token),
 	},
 });

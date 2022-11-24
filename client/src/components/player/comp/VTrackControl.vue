@@ -31,6 +31,7 @@ const command = (comm, isTrue) => {
 	.icon {
 		margin: 0 10px;
 		font-size: 32px;
+		cursor: pointer;
 	}
 }
 </style>

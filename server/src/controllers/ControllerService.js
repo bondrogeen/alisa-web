@@ -32,6 +32,14 @@ export default {
       Response.InternalServerError(res);
     }
   },
+  init: async (req, res) => {
+    try {
+      const data = await alisa.getState();
+      Response.Ok(res, data);
+    } catch (error) {
+      Response.InternalServerError(res);
+    }
+  },
   scan: async (req, res) => {
     try {
       const data = await alisa.findDeviceList();
