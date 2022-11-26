@@ -12,13 +12,14 @@ import VPlayer from '@/components/player/VPlayer';
 import { useRoute } from 'vue-router';
 
 const props = defineProps({
+	data: { type: Object, default: () => ({}) },
 	devices: { type: Array, default: () => [] },
 	onSend: { type: Function, default: null },
 });
 
 const route = useRoute();
 const id = route.params.id;
-const data = computed(() => props.devices[id]?.data || {});
+const data = computed(() => props.data[id]?.data || {});
 const onCommand = (message) => props.onSend(id, message);
 
 const onClick = () => {

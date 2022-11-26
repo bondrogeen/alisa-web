@@ -16,7 +16,7 @@
 		<div class="device__body">
 			<div class="device__inner">
 				<div class="device__image">
-					<!-- <span :class="['device__dot', `device__dot--${status}`]" :title="status"></span> -->
+					<span :class="['device__dot', `device__dot--${status}`]" :title="status"></span>
 					<img height="100" width="100" :src="image" :alt="platform" />
 				</div>
 				<p class="device__title">{{ type }}</p>
@@ -41,6 +41,7 @@ const props = defineProps({
 	ip: { type: String, default: '' },
 	platform: { type: String, default: '' },
 	port: { type: Number, default: 0 },
+	connected: { type: Boolean, default: false },
 	data: { type: Object, default: () => ({}) },
 });
 
@@ -50,18 +51,20 @@ const menus = [
 	{ name: 'Remove', path: '' },
 	{ name: 'Exit', path: '' },
 ];
+
 const iconStatus = {
 	BUSY: 'icon-alert-circle',
 	LISTENING: 'icon-mic',
 	SPEAKING: 'icon-volume-1',
+	PLAY: 'icon-play',
 };
 
 const image = computed(() => platforms?.[props.platform]?.image || '');
-// const name = computed(() => platforms?.[props.platform]?.name || '');
 const type = computed(() => platforms?.[props.platform]?.type || '');
-// const message = computed(() => this.$store.getters['socket/getMessage'](this.id));
-// const status = computed(() => this.state?.status || 'close');
-const statusIcon = computed(() => iconStatus[props.data?.state?.aliceState || '']);
+const state = computed(() => props.data?.state || {});
+const status = computed(() => (props.connected ? 'active' : 'close'));
+const statusIcon = computed(() => (iconStatus[state.value?.aliceState || ''] || playing.value ? iconStatus['PLAY'] : ''));
+const playing = computed(() => state.value?.playing || false);
 
 const onPlayer = () => router.push('player/' + props.id);
 const onControl = () => router.push('control/' + props.id);
@@ -77,7 +80,7 @@ const onControl = () => router.push('control/' + props.id);
 	background-color: #fff;
 	display: flex;
 	flex-direction: column;
-	border-radius: 20px;
+	border-radius: 10px;
 	transition: all 0.2s ease-out;
 	&:hover {
 		box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
@@ -118,7 +121,7 @@ const onControl = () => router.push('control/' + props.id);
 		text-align: center;
 	}
 	&__info {
-		font-size: 14px;
+		font-size: 12px;
 		text-align: center;
 		opacity: 0.7;
 	}

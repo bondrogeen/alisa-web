@@ -4,34 +4,31 @@
 			<div class="header__brand" @click="$router.push({ name: 'Home' })">Alisa Web</div>
 			<div class="header__center"></div>
 			<div class="header__profile">
-				<a-dropdown>
+				<a-dropdown v-if="token">
 					<template #activator="{ on }">
-						<i class="icon" :class="token ? 'icon-settings' : 'icon-user'" @click="on.click"></i>
+						<i class="icon icon-settings" @click="on.click"></i>
 					</template>
-					<a-list :list="menus" @click="onList"></a-list>
+					<a-list :list="menus" @click="onEvent"></a-list>
 				</a-dropdown>
+				<i v-else class="icon icon-user"></i>
 			</div>
-			{{ token }}
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
+
 defineProps({
 	token: { type: String, default: '' },
 	devices: { type: Array, default: () => [] },
 });
 
-const menus = [
-	{ name: 'Login', icon: 'icon-user', path: '' },
-	{ name: 'Profile', icon: 'icon-user', path: '' },
-	{ name: 'Exit', icon: 'icon-log-out', path: '' },
-];
+const emit = defineEmits(['event']);
 
-const onList = (item) => {
-	console.log(item);
-};
+const menus = [{ name: 'Scan', icon: 'icon-user', path: '' }];
+
+const onEvent = (item) => emit('event', item);
 </script>
 
 <style lang="scss" scoped>

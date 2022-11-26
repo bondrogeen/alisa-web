@@ -12,7 +12,7 @@ module.exports = defineConfig({
 				ws: true,
 				changeOrigin: true,
 			},
-			'/v1/api/': {
+			'/api/v1': {
 				target: 'http://localhost:3001',
 				ws: true,
 				changeOrigin: true,

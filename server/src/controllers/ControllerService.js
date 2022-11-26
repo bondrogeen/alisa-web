@@ -4,7 +4,6 @@ import Response from '../helpers/Response';
 
 export default {
   token: async (req, res) => {
-    console.log(req.body);
     try {
       const { username, password } = req.body;
       if (!username && !password) {
@@ -17,22 +16,30 @@ export default {
       Response.InternalServerError(res);
     }
   },
-  conection: async (req, res) => {
-    console.log(req.body);
+  init: async (req, res) => {
     try {
+      console.log(req.body);
       const { token } = req.body;
       if (!token) {
-        Response.InvalidUserOrPass(res);
+        Response.InvalidParams(res);
         return;
       }
-      alisa.setToken(token);
-      const data = await alisa.conection();
+      const data = await alisa.setToken(token);
+      if (!data) return Response.Unauthorized(res);
+      Response.Ok(res, data);
+    } catch (error) {
+      Response.InternalServerError(res, error);
+    }
+  },
+  connection: async (req, res) => {
+    try {
+      const data = await alisa.connection();
       Response.Ok(res, data);
     } catch (error) {
       Response.InternalServerError(res);
     }
   },
-  init: async (req, res) => {
+  state: async (req, res) => {
     try {
       const data = await alisa.getState();
       Response.Ok(res, data);

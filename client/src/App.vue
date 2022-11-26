@@ -1,10 +1,10 @@
 <template>
 	<div class="app">
 		<div class="app__header">
-			<AppHeader v-bind="init" />
+			<AppHeader v-bind="init" @event="onEvent" />
 		</div>
 		<div class="app__body">
-			<router-view :devices="devices" :onSend="onSend" />
+			<router-view :devices="devices" :data="data" :onSend="onSend" />
 		</div>
 		<div class="app__footer">
 			<AppFooter />
@@ -14,20 +14,26 @@
 
 <script setup>
 import { io } from 'socket.io-client';
-import { socketStore, storeToRefs } from '@/store/';
+import { socketStore, serviceStore, storeToRefs } from '@/store/';
 
 import AppHeader from '@/components/app/AppHeader';
 import AppFooter from '@/components/app/AppFooter';
 
 const store = socketStore();
-const { onMessage, onConnect, onDisconnect, onSend, onInit } = store;
-const { socket, devices } = storeToRefs(store);
+const service = serviceStore();
+const { onMessage, onConnect, onDisconnect, onSend } = store;
+const { onConnection } = service;
+const { socket, data } = storeToRefs(store);
+const { init, devices } = storeToRefs(service);
 
 socket.value = io();
 socket.value.on('connect', onConnect);
 socket.value.on('disconnect', onDisconnect);
 socket.value.on('data', onMessage);
-socket.value.on('init', onInit);
+
+const onEvent = async ({ name }) => {
+	if (name === 'Scan') await onConnection();
+};
 </script>
 
 <style lang="scss" scoped>

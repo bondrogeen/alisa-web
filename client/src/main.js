@@ -19,7 +19,7 @@ components(app);
 (async () => {
 	app.use(pinia);
 	const store = serviceStore();
-	await store.onInit();
+	await store.onState();
 	app.use(router);
 	app.mount('#app');
 })();

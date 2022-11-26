@@ -2,12 +2,9 @@
 	<div class="page-home container">
 		<div class="page-home__title">My devices</div>
 		<div class="page-home__devices">
-			<div v-for="(device, key) in devices" :key="key" class="page-home__card">
-				<CardDevice v-bind="device" />
+			<div v-for="device in devices" :key="device.id" class="page-home__card">
+				<CardDevice v-bind="device" :data="getData(device)" />
 			</div>
-			<!-- <div v-if="!devices.length" class="page-home__list page-home__empty">
-				<span>Add</span>
-			</div> -->
 		</div>
 	</div>
 </template>
@@ -16,10 +13,13 @@
 import { defineProps } from 'vue';
 import CardDevice from '../components/home/CardDevice';
 
-defineProps({
+const props = defineProps({
 	devices: { type: Array, default: () => [] },
+	data: { type: Object, default: () => ({}) },
 	init: { type: Object, default: () => ({}) },
 });
+
+const getData = ({ id }) => props.data?.[id]?.data;
 </script>
 
 <style lang="scss" scoped>

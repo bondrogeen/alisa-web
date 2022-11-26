@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 export default defineStore('socket', {
 	state: () => ({
-		devices: {},
+		data: {},
 		isConnected: false,
 		socket: null,
 	}),
@@ -10,24 +10,19 @@ export default defineStore('socket', {
 		onMessage(message) {
 			const { id, ip, data } = message;
 			if (id && ip && data) {
-				this.devices[id] = message;
+				this.data[id] = message;
 			}
 			console.log(message);
 		},
 		onSend(id, message) {
-			console.log(id, message);
 			if (this.socket && this.isConnected) this.socket.emit('send', id, message);
 		},
-		onConnect(socket) {
+		onConnect() {
 			this.isConnected = true;
-			console.log(socket);
 		},
-		onDisconnect(socket) {
+		onDisconnect() {
 			this.isConnected = false;
-			console.log(socket);
 		},
 	},
-	getters: {
-		isDevice: (state) => Boolean(Object.keys(state.devices).length),
-	},
+	getters: {},
 });
