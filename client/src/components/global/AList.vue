@@ -26,7 +26,7 @@ const onClick = (item) => emit('click', item);
 	&__item {
 		padding: 5px 20px;
 		&:hover {
-			background-color: rgb(224, 235, 245);
+			background-color: color('app', 'white');
 		}
 	}
 }

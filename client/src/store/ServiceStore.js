@@ -16,7 +16,6 @@ export default defineStore('service', {
 		async onYandexToken({ username, password }) {
 			if (!username || !password) return;
 			const { data } = await api.service.token({ username, password });
-			console.log(data);
 			if (data?.access_token) {
 				this.token = data.access_token;
 				return data;
@@ -26,7 +25,6 @@ export default defineStore('service', {
 			try {
 				if (!this.token) return;
 				const { data } = await api.service.init({ token: this.token });
-				console.log(data);
 				await this.onConnection();
 				return data;
 			} catch (error) {

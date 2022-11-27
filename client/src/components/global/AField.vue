@@ -18,16 +18,16 @@ defineProps({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .a-field {
 	&__label {
-		color: black;
+		color: color('app', 'black');
 		font-weight: 600;
 		font-size: 18px;
 	}
 	&__hint {
 		height: 20px;
-		color: rgb(199, 82, 82);
+		color: color('red', 'base');
 	}
 }
 </style>

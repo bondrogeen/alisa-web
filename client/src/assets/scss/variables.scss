@@ -1,1 +1,188 @@
+@import './tools/index.scss';
 
+$font-size-root: 16px;
+$line-height-root: 140%;
+$body-font-family: 'Roboto', sans-serif;
+$heading-font-family: $body-font-family;
+$border-radius-root: 4px !default;
+
+$font-weights: (
+	'thin': 100,
+	'light': 300,
+	'regular': 400,
+	'medium': 500,
+	'bold': 700,
+	'black': 900,
+);
+
+$spacer: 5px;
+
+$sizes: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16;
+
+$colors: (
+	'grey': (
+		'base': #6b7280,
+		'lighten-1': #f0f0f0,
+		'lighten-2': #dddddd,
+		'darken-1': #c2c8cc,
+		'darken-2': #4a4a4a,
+	),
+	'blue': (
+		'base': #3f51b5,
+		'lighten-1': #ced5ff,
+		'lighten-2': #b2bdff,
+		'darken-1': #465d93,
+	),
+	'red': (
+		'base': #f44336,
+		'lighten-1': #f9d0cd,
+		'lighten-2': #f1aeb5,
+	),
+	'green': (
+		'base': #008a00,
+		'lighten-1': #b8ffb8,
+		'lighten-2': #8bff8b,
+	),
+	'yellow': (
+		'base': #f3b91a,
+		'lighten-1': #fff3cd,
+		'lighten-2': #ffe69c,
+		'darken-1': #f18529,
+	),
+	'app': (
+		'primary': #6839cf,
+		'secondary': #3c1199,
+		'black': #091227,
+		'white': #fff,
+		'overlay': #0c0b0ba1,
+	),
+);
+
+$colors-app: (
+	'light': (
+		'--bg-1': color('app', 'white'),
+		'--bg-2': #e0f0ff,
+		'--list-bg': color('app', 'white'),
+		'--text-1': color('app', 'black'),
+		'--label-1': color('grey', 'darken-2'),
+		'--border-1': color('grey', 'lighten-2'),
+		'--shadow-1': #00000020,
+		'--overlay': color('app', 'overlay'),
+	),
+	'dark': (
+		'--bg-1': #212024,
+		'--bg-2': #313135,
+		'--list-bg': #313135,
+		'--text-1': color('app', 'white'),
+		'--label-1': color('grey', 'darken-1'),
+		'--border-1': color('grey', 'darken-2'),
+		'--shadow-1': none,
+		'--overlay': color('app', 'overlay'),
+	),
+);
+
+$headings: (
+	'h1': (
+		'size': 40px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'h2': (
+		'size': 32px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'h3': (
+		'size': 28px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'h4': (
+		'size': 24px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'h5': (
+		'size': 20px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'h6': (
+		'size': 16px,
+		'weight': 600,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'title-1': (
+		'size': 18px,
+		'weight': 500,
+		'line-height': 120%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'body-1': (
+		'size': 16px,
+		'weight': 400,
+		'line-height': 120%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'body-2': (
+		'size': 12px,
+		'weight': 400,
+		'line-height': 120%,
+		'letter-spacing': 0,
+		'font-family': $heading-font-family,
+		'text-transform': false,
+	),
+	'caption': (
+		'size': 10px,
+		'weight': normal,
+		'line-height': 140%,
+		'letter-spacing': 0,
+		'font-family': $body-font-family,
+		'text-transform': false,
+	),
+);
+
+$sm-up: 601px !default;
+$md-up: 961px !default;
+$lg-up: 1201px !default;
+$sm: 600px !default;
+$md: 960px !default;
+$lg: 1200px !default;
+
+$medium-and-up: 'only screen and (min-width : #{$sm-up})' !default;
+$large-and-up: 'only screen and (min-width : #{$md-up})' !default;
+$extra-large-and-up: 'only screen and (min-width : #{$lg-up})' !default;
+$small-and-down: 'only screen and (max-width : #{$sm})' !default;
+$medium-and-down: 'only screen and (max-width : #{$md})' !default;
+$large-and-down: 'only screen and (max-width : #{$lg})' !default;
+$medium-only: 'only screen and (min-width : #{$sm-up}) and (max-width : #{$md})' !default;
+
+// 12. Grid
+// ==========================================================================
+
+$num-cols: 12 !default;
+$gutter-width: 1.5rem !default;
+$element-top-margin: $gutter-width/3 !default;
+$element-bottom-margin: ($gutter-width * 2)/3 !default;

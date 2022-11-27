@@ -1,6 +1,6 @@
 <template>
 	<div class="card-player">
-		<div class="card-player__header hover">
+		<div class="card-player__header">
 			<i class="icon icon-arrow-left" @click="$router.push('/')"></i>
 			<h1>Play now</h1>
 		</div>
@@ -11,22 +11,22 @@
 		</div>
 		<div class="card-player__body">
 			<div>
-				<h3 class="card-player__title">{{ playerState.title }}</h3>
-				<p class="card-player__subtitle">{{ playerState.subtitle }}</p>
+				<h3 class="card-player__title text-h5 mb-2">{{ playerState.title }}</h3>
+				<p class="card-player__subtitle text-title-1">{{ playerState.subtitle }}</p>
 			</div>
 		</div>
 		<div class="card-player__control">
 			<div class="card-player__seekbar">
-				<VSeekbar v-bind="playerState" @command="$emit('command', $event)" />
+				<VSeekbar v-bind="bindSeekbar" @command="$emit('command', $event)" />
 			</div>
 			<div class="card-player__buttons">
 				<div class="card-player__volume">
 					<VVolume :volume="volume" @command="$emit('command', $event)" />
 				</div>
 				<div class="card-player__track">
-					<VTrackControl v-bind="playerState" :playing="isPlaying" @command="$emit('command', $event)" />
+					<VTrackControl v-bind="bindTrack" :playing="isPlaying" @command="$emit('command', $event)" />
 				</div>
-				<div class="card-player__like hover">
+				<div class="card-player__like">
 					<i v-if="isMy" class="icon icon-heart-on"></i>
 					<i v-else class="icon icon-heart" @click="text('Поставь лайк')"></i>
 				</div>
@@ -56,6 +56,14 @@ const emit = defineEmits(['command']);
 
 const isPlaying = computed(() => props.state?.playing || false);
 const playerState = computed(() => props.state?.playerState || {});
+const bindTrack = computed(() => {
+	const { playing, hasNext, hasPause, hasPlay, hasPrev } = playerState.value;
+	return { playing, hasNext, hasPause, hasPlay, hasPrev };
+});
+const bindSeekbar = computed(() => {
+	const { duration, progress, type, hasProgressBar } = playerState.value;
+	return { duration, progress, type, hasProgressBar };
+});
 const isMy = computed(() => (playerState.value?.playlistType || '') === 'Playlist');
 const volume = computed(() => props.state?.volume || 0);
 
@@ -71,31 +79,25 @@ const extra = computed(() => playerState.value?.extra || {});
 const text = (text) => emit('command', { command: 'sendText', text });
 </script>
 
-<style lang="scss" scoped>
-$fontSize: 32px;
-
+<style lang="scss">
 .card-player {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	color: #56617e;
+	color: color('blue', 'darken-1');
 	&__title {
-		color: aliceblue;
-		font-size: 1.5em;
+		color: color('app', 'white');
 		text-align: center;
-		min-height: 30px;
 	}
 	&__subtitle {
-		min-height: 30px;
 		text-align: center;
-		font-size: 1.2em;
 	}
 	&__header {
+		position: relative;
 		flex: 0 0 100px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		position: relative;
 		i {
 			position: absolute;
 			left: 10px;
@@ -110,10 +112,9 @@ $fontSize: 32px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: radial-gradient(closest-side, #3c1199, #091227);
+		background: radial-gradient(closest-side, color('app', 'primary'), color('app', 'black'));
 		img {
 			border-radius: 10px;
-			box-shadow: blue($color: #000000);
 		}
 	}
 	&__body {
@@ -136,16 +137,9 @@ $fontSize: 32px;
 		display: flex;
 		justify-content: center;
 		position: relative;
-		i {
-			// margin: 0 10px;
-		}
 	}
 	&__volume {
-		// position: absolute;
-		// left: 0;
 		margin-right: auto;
-	}
-	&__track {
 	}
 	&__like {
 		margin-left: auto;
@@ -160,16 +154,16 @@ $fontSize: 32px;
 		height: 3px;
 		width: 30%;
 		display: block;
-		background-color: azure;
+		background-color: color('app', 'white');
+		margin-bottom: 20px;
 	}
-}
-.hover {
+
 	i {
+		font-size: 32px;
 		cursor: pointer;
-		font-size: $fontSize;
 		transition: all 0.2s ease-out;
 		&:hover {
-			color: azure;
+			color: color('app', 'white');
 		}
 	}
 }

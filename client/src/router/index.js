@@ -27,6 +27,14 @@ const routes = [
 			middleware: [auth],
 		},
 	},
+	{
+		path: '/info/:id',
+		name: 'Player',
+		component: () => import('../views/InfoView.vue'),
+		meta: {
+			middleware: [auth],
+		},
+	},
 ];
 
 function nextFactory(context, middleware, index) {

@@ -5,7 +5,7 @@
 			<span>{{ time }}</span>
 		</div>
 		<div ref="slider" :class="['player-seekbar__slider', { 'player-seekbar__slider--disabled': !hasProgressBar }]">
-			<div class="player-seekbar__line" @click="click"><div></div></div>
+			<div class="player-seekbar__line" @click="click"></div>
 			<div class="player-seekbar__pointer" :style="`left: calc(${line}% - 10px)`" @mousedown="mousedown"></div>
 		</div>
 	</div>
@@ -112,19 +112,22 @@ onUnmounted(() => {
 		width: 100%;
 		cursor: pointer;
 		padding: 3px 0;
-		div {
+		position: relative;
+		&::before {
+			content: '';
+			position: absolute;
 			height: 2px;
-			background-color: rgb(211, 120, 0);
 			width: 100%;
+			background-color: color('yellow', 'base');
 		}
 	}
 	&__pointer {
 		position: absolute;
-		background-color: rgb(226, 211, 192);
 		top: calc(50% - 10px);
 		left: 30px;
 		height: 20px;
 		width: 20px;
+		background-color: color('yellow', 'darken-1');
 		border-radius: 50%;
 		cursor: grab;
 	}

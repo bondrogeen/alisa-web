@@ -23,16 +23,12 @@ const input = computed({
 const onFocus = (e) => emit('focus', e);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .a-input {
-	font-size: 18px;
-	font-weight: 500;
-	line-height: 18px;
+	position: relative;
 	height: 44px;
 	border: none;
-	border-bottom: 2px solid #8a2be2;
-	color: #000;
-	position: relative;
+	border-bottom: 2px solid color('app', 'primary');
 	width: 100%;
 	margin: 0;
 	padding: 0;
@@ -42,9 +38,7 @@ const onFocus = (e) => emit('focus', e);
 	background: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 	&::placeholder {
-		color: rgba(114, 114, 117, 0.514);
-		font-size: 0.7em;
-		font-weight: 400;
+		color: color('grey', 'base');
 	}
 }
 </style>

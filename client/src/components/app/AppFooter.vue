@@ -1,40 +1,29 @@
 <template>
-	<div class="footer">
-		<div class="footer__copyright container">
+	<div class="app-footer">
+		<div class="app-footer__copyright container">
 			<p>{{ `© ${new Date().getFullYear()} «Alisa web»` }}</p>
 			<a href="https://github.com/bondrogeen/alisa-web" target="blank"><i class="icon icon-github"></i></a>
-			<span class="footer__version">ver.{{}}</span>
 		</div>
 	</div>
 </template>
 
-<style lang="scss" scoped>
-.footer {
+<style lang="scss">
+.app-footer {
 	height: 100%;
-	background-color: #6839cf;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 0 20px;
-	user-select: none;
+	background-color: color('app', 'primary');
 	&__copyright {
-		color: rgb(255, 255, 255);
+		color: color('app', 'white');
 		display: flex;
 		align-items: center;
-		p {
-			flex: 1 1 auto;
-			margin: 0 10px 0 0;
-		}
-		span {
-			font-size: 14px;
-			color: darkgrey;
-		}
+		justify-content: space-between;
 		a {
-			color: azure;
+			color: color('app', 'white');
 		}
 		.icon-github {
-			font-size: 1.2em;
-			margin: 0 10px;
+			font-size: 22px;
 			cursor: pointer;
 		}
 	}

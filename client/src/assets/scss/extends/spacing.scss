@@ -1,0 +1,111 @@
+.ma {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin: $size * $spacer !important;
+    }
+  }
+}
+
+.my {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin: $size * $spacer 0 !important;
+    }
+  }
+}
+
+.mx {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin: 0 $size * $spacer !important;
+    }
+  }
+}
+
+.mb {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin-bottom: $size * $spacer !important;
+    }
+  }
+}
+
+.mr {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin-right: $size * $spacer !important;
+    }
+  }
+}
+
+.ml {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin-left: $size * $spacer !important;
+    }
+  }
+}
+
+.mt {
+  @each $size in $sizes {
+    &-#{$size} {
+      margin-top: $size * $spacer !important;
+    }
+  }
+}
+
+.pa {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding: $size * $spacer !important;
+    }
+  }
+}
+
+.py {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding: $size * $spacer 0 !important;
+    }
+  }
+}
+
+.px {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding: 0 $size * $spacer !important;
+    }
+  }
+}
+
+.pb {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding-bottom: $size * $spacer !important;
+    }
+  }
+}
+
+.pr {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding-right: $size * $spacer !important;
+    }
+  }
+}
+
+.pl {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding-left: $size * $spacer !important;
+    }
+  }
+}
+
+.pt {
+  @each $size in $sizes {
+    &-#{$size} {
+      padding-top: $size * $spacer !important;
+    }
+  }
+}

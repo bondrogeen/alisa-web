@@ -7,7 +7,7 @@
 				</div>
 				<div class="card-login__header">
 					<img width="70" height="70" src="/images/logo-alisa.jpg" alt="" />
-					<span>{{ isFormToken ? 'Log' : 'Get Yandex token ' }}</span>
+					<h2>{{ isFormToken ? 'Connection' : 'Login Yandex' }}</h2>
 				</div>
 				<div class="card-login__body">
 					<template v-if="isFormToken">
@@ -60,7 +60,7 @@ const onConection = async () => {
 const onYandexToken = async () => {
 	loading.value = true;
 	const res = await store.onYandexToken(form.value);
-	if (res) isFormToken.value = false;
+	if (res) isFormToken.value = true;
 	loading.value = false;
 };
 </script>
@@ -68,7 +68,6 @@ const onYandexToken = async () => {
 <style lang="scss">
 .page-login {
 	height: 100%;
-	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -78,49 +77,45 @@ const onYandexToken = async () => {
 	}
 }
 .card-login {
+	position: relative;
 	height: 100%;
 	width: 100%;
-	background-color: azure;
+	color: color('app', 'black');
+	background-color: color('app', 'white');
 	border-radius: 10px;
 	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	color: black;
 	user-select: none;
-	position: relative;
 	&__fab {
 		position: absolute;
 		top: 30px;
 		left: -20px;
-		border-radius: 50%;
-		width: 40px;
-		height: 40px;
-		background-color: azure;
 		display: flex;
 		align-items: center;
-		box-shadow: 0 4px 8px #00000075;
-		padding: 0 0 0 2px;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background-color: color('app', 'white');
+		box-shadow: 2px 1px 4px 0px rgb(0 0 0 / 46%);
+		cursor: pointer;
 		i {
 			font-size: 30px;
 		}
 	}
 	&__header {
 		text-align: center;
-		font-size: 24px;
 		img {
 			margin: 10px auto;
 		}
 	}
 	&__body {
-		flex: 1 1 auto;
 		span {
 			display: block;
-			color: rgb(75, 75, 214);
+			color: color('app', 'primary');
 			cursor: pointer;
 		}
 	}
 	&__footer {
-		flex: 0 0 auto;
 		margin: 20px 0 0 0;
 		width: 100%;
 	}

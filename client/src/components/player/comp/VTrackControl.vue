@@ -28,10 +28,7 @@ const command = (comm, isTrue) => {
 
 <style lang="scss">
 .player-track {
-	.icon {
-		margin: 0 10px;
-		font-size: 32px;
-		cursor: pointer;
-	}
+	display: flex;
+	gap: 20px;
 }
 </style>

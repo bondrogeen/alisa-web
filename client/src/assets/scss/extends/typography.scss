@@ -1,0 +1,29 @@
+.fw-500 {
+  font-weight: 500 !important;
+}
+.fw-600 {
+  font-weight: 600 !important;
+}
+.fw-700 {
+  font-weight: 700 !important;
+}
+.fw-800 {
+  font-weight: 800 !important;
+}
+
+.text {
+  @each $key, $value in $headings {
+    &-#{$key} {
+      font-size: map-get($value, 'size');
+      font-weight: map-get($value, 'weight');
+      line-height: map-get($value, 'line-height');
+      letter-spacing: map-get($value, 'letter-spacing');
+      font-family: map-get($value, 'font-family');
+      text-transform: none;
+    }
+  }
+}
+
+.center {
+  text-align: center;
+}

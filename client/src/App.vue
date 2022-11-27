@@ -36,18 +36,17 @@ const onEvent = async ({ name }) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .app {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	background: #091227;
+	background: color('app', 'black');
 	&__header {
 		flex: 0 0 50px;
 	}
 	&__body {
 		flex: 1 1 100%;
-		padding: 20px;
 	}
 	&__footer {
 		flex: 0 0 50px;

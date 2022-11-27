@@ -1,0 +1,12 @@
+html,
+#app {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	font-family: $body-font-family;
+	color: color('app', 'white');
+	margin: 0;
+	padding: 0;
+}

@@ -1,0 +1,9 @@
+@each $color, $values in $colors {
+  .#{$color} {
+    @each $tone, $value in $values {
+      &-#{$tone} {
+        color: $value;
+      }
+    }
+  }
+}

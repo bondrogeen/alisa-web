@@ -57,34 +57,29 @@ const wheel = ({ deltaY }) => {
 .player-volume {
 	position: relative;
 	&--hover {
-		color: azure;
+		color: color('app', 'white');
 	}
 	&__body {
 		position: absolute;
-		top: 0;
+		top: 2px;
 		left: 30px;
 		width: 150px;
 		height: 30px;
-		background-color: white;
+		background-color: color('app', 'white');
 		border-radius: 15px;
-		// padding: 2px;
 		overflow: hidden;
-		border: 2px solid white;
+		border: 2px solid color('app', 'white');
 		display: none;
 		&--show {
 			display: block;
 		}
 	}
 	&__value {
-		transition: all 0.2s ease-out;
-		background-color: #6839cf;
-		border-radius: 15px;
 		width: 100%;
 		height: 100%;
-	}
-	.icon {
-		font-size: 32px;
-		cursor: pointer;
+		transition: all 0.2s ease-out;
+		background-color: color('app', 'primary');
+		border-radius: 15px;
 	}
 }
 </style>

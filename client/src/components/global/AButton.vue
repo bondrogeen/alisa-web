@@ -23,37 +23,32 @@ const click = (event) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .a-button {
-	padding: 0 12px;
 	min-height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 12px;
 	border: none;
 	border-radius: 7px;
 	font-size: 16px;
 	font-weight: 700;
+	background-color: color('app', 'white');
 	cursor: pointer;
-	color: #1e2121;
-	background-color: #d4d4d4;
 	transition: all 0.2s ease-out;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 	&--full {
 		width: 100%;
 	}
 	&--primary {
-		background-color: blueviolet;
-		color: aliceblue;
+		background-color: color('app', 'primary');
+		color: color('app', 'white');
 	}
 	&--loading,
 	&--disabled {
 		cursor: default;
 		opacity: 0.7;
-		background-color: grey;
-	}
-	&:hover {
-		// opacity: 0.7;
-		// box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+		background-color: color('grey', 'base');
 	}
 }
 </style>

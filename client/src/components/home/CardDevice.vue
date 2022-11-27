@@ -1,32 +1,32 @@
 <template>
-	<div class="device">
-		<div class="device__header">
-			<div class="device__menu">
-				<a-dropdown>
+	<div class="card-device">
+		<div class="card-device__header">
+			<div class="card-device__menu">
+				<a-dropdown top="0">
 					<template #activator="{ on }">
 						<i class="icon icon-more-horizontal" v-on="on"></i>
 					</template>
-					<a-list :list="menus"></a-list>
+					<a-list :list="menus" @click="onEvent"></a-list>
 				</a-dropdown>
 			</div>
-			<div class="device__status">
+			<div class="card-device__status">
 				<i :class="`icon ${statusIcon}`"></i>
 			</div>
 		</div>
-		<div class="device__body">
-			<div class="device__inner">
-				<div class="device__image">
-					<span :class="['device__dot', `device__dot--${status}`]" :title="status"></span>
+		<div class="card-device__body">
+			<div class="card-device__inner">
+				<div class="card-device__image">
+					<span :class="['card-device__dot', `card-device__dot--${status}`]" :title="status"></span>
 					<img height="100" width="100" :src="image" :alt="platform" />
 				</div>
-				<p class="device__title">{{ type }}</p>
-				<p class="device__subtitle">{{ platform }}</p>
-				<p class="device__info">{{ `${ip}:${port}` }}</p>
+				<p class="card-device__title">{{ type }}</p>
+				<p class="card-device__subtitle">{{ platform }}</p>
+				<p class="card-device__info">{{ `${ip}:${port}` }}</p>
 			</div>
 		</div>
-		<div class="device__footer">
+		<div class="card-device__footer">
 			<a-button full color="primary" @click="onPlayer">Player</a-button>
-			<a-button full color="primary" @click="onControl">Control</a-button>
+			<!-- <a-button full color="primary" @click="onControl">Info</a-button> -->
 		</div>
 	</div>
 </template>
@@ -48,6 +48,7 @@ const props = defineProps({
 const router = useRouter();
 
 const menus = [
+	{ name: 'Info', path: '' },
 	{ name: 'Remove', path: '' },
 	{ name: 'Exit', path: '' },
 ];
@@ -63,23 +64,23 @@ const image = computed(() => platforms?.[props.platform]?.image || '');
 const type = computed(() => platforms?.[props.platform]?.type || '');
 const state = computed(() => props.data?.state || {});
 const status = computed(() => (props.connected ? 'active' : 'close'));
-const statusIcon = computed(() => (iconStatus[state.value?.aliceState || ''] || playing.value ? iconStatus['PLAY'] : ''));
+const aliceState = computed(() => iconStatus[state.value?.aliceState]);
 const playing = computed(() => state.value?.playing || false);
+const statusIcon = computed(() => (playing.value ? aliceState.value || iconStatus['PLAY'] : aliceState.value));
 
+const onEvent = ({ name }) => {
+	if (name === 'Info') router.push('info/' + props.id);
+};
 const onPlayer = () => router.push('player/' + props.id);
-const onControl = () => router.push('control/' + props.id);
 </script>
 
-<style lang="scss" scoped>
-.device {
+<style lang="scss">
+.card-device {
 	width: 100%;
 	min-width: 200px;
-	padding: 10px 20px 20px 20px;
-	// height: 220px;
-	color: #000;
-	background-color: #fff;
-	display: flex;
-	flex-direction: column;
+	padding: 20px;
+	color: color('app', 'black');
+	background-color: color('app', 'white');
 	border-radius: 10px;
 	transition: all 0.2s ease-out;
 	&:hover {
@@ -100,16 +101,10 @@ const onControl = () => router.push('control/' + props.id);
 		right: 0;
 		top: 0;
 		&--active {
-			background-color: chartreuse;
-		}
-		&--init {
-			background-color: rgb(255, 166, 0);
-		}
-		&--open {
-			background-color: rgb(224, 148, 35);
+			background-color: color('green', 'base');
 		}
 		&--close {
-			background-color: red;
+			background-color: color('red', 'base');
 		}
 	}
 	&__title {
@@ -126,13 +121,11 @@ const onControl = () => router.push('control/' + props.id);
 		opacity: 0.7;
 	}
 	&__body {
-		flex: 1 1 auto;
 		display: flex;
 		justify-content: center;
 		margin-bottom: 20px;
 	}
 	&__header {
-		flex: 0 0 20px;
 		position: relative;
 	}
 	&__menu {
@@ -150,7 +143,6 @@ const onControl = () => router.push('control/' + props.id);
 		flex-direction: column;
 	}
 	&__footer {
-		flex: 0 0;
 		display: flex;
 		gap: 10px;
 	}
