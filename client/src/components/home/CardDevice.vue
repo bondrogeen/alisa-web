@@ -48,9 +48,10 @@ const props = defineProps({
 const router = useRouter();
 
 const menus = [
+	{ name: 'TTS', path: '' },
 	{ name: 'Info', path: '' },
-	{ name: 'Remove', path: '' },
-	{ name: 'Exit', path: '' },
+	// { name: 'Remove', path: '' },
+	// { name: 'Exit', path: '' },
 ];
 
 const iconStatus = {
@@ -69,6 +70,7 @@ const playing = computed(() => state.value?.playing || false);
 const statusIcon = computed(() => (playing.value ? aliceState.value || iconStatus['PLAY'] : aliceState.value));
 
 const onEvent = ({ name }) => {
+	if (name === 'TTS') router.push('tts/' + props.id);
 	if (name === 'Info') router.push('info/' + props.id);
 };
 const onPlayer = () => router.push('player/' + props.id);

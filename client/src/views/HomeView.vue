@@ -22,7 +22,7 @@ const props = defineProps({
 const getData = ({ id }) => props.data?.[id]?.data;
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .page-home {
 	&__card {
 		width: 100%;

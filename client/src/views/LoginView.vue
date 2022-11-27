@@ -12,15 +12,15 @@
 				<div class="card-login__body">
 					<template v-if="isFormToken">
 						<a-field label="Token" :error="error">
-							<a-input v-model="token" type="text" placeholder="Enter your token" @focus="error = ''" />
+							<a-input v-model="token" type="text" autocomplete="token" name="token" placeholder="Enter your token" @focus="error = ''" />
 						</a-field>
 					</template>
 					<template v-else>
 						<a-field label="Login">
-							<a-input v-model="form.username" type="text" placeholder="Enter your login" @focus="error = ''" />
+							<a-input v-model="form.username" type="text" autocomplete="username" name="username" placeholder="Enter your login" @focus="error = ''" />
 						</a-field>
 						<a-field :error="error" label="Password">
-							<a-input v-model="form.password" type="password" placeholder="Enter your password" @focus="error = ''" />
+							<a-input v-model="form.password" type="password" autocomplete="password" name="password" placeholder="Enter your password" @focus="error = ''" />
 						</a-field>
 					</template>
 					<span v-if="isFormToken" @click="isFormToken = false">Get token</span>
@@ -72,6 +72,7 @@ const onYandexToken = async () => {
 	align-items: center;
 	justify-content: center;
 	&__inner {
+		margin: 30px;
 		width: 400px;
 		max-width: 400px;
 	}

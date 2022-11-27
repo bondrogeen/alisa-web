@@ -1,7 +1,10 @@
 <template>
-	<div class="page-player container" @click="onClick">
-		<div class="page-player__inner">
-			{{ data }}
+	<div class="page-info container">
+		<div class="page-home__title text-h4 my-6">Info</div>
+		<div class="page-info__body">
+			<div class="page-info__view">
+				{{ state }}
+			</div>
 		</div>
 	</div>
 </template>
@@ -18,42 +21,27 @@ const props = defineProps({
 
 const route = useRoute();
 const id = route.params.id;
-const data = computed(() => props.data[id]?.data || {});
-// const onCommand = (message) => props.onSend(id, message);
+// const data = computed(() => props.data[id]?.data || {});
 
-const onClick = () => {
-	console.log('sdsdsdsd');
-	// onCommand({
-	// 	command: 'playMusic',
-	// 	id: '44731403',
-	// 	type: 'track',
-	// });
-	// onCommand({
-	// 	command: 'serverAction',
-	// 	serverActionEventPayload: {
-	// 		type: 'server_action',
-	// 		name: 'bass_action',
-	// 		payload: {
-	// 			data: {
-	// 				video_descriptor: {
-	// 					provider_item_id: 'S_n8CCgk8D0',
-	// 					provider_name: 'youtube',
-	// 				},
-	// 			},
-	// 			name: 'quasar.play_video_by_descriptor',
-	// 		},
-	// 	},
-	// });
-};
+const state = computed(() => props.data[id]?.data?.state || {});
+
 </script>
 
-<style lang="scss" scoped>
-.page-player {
+<style lang="scss">
+.page-info {
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	&__inner {
-		width: 800px;
+	&__body {
+		display: flex;
+		margin-bottom: 30px;
+		gap: 20px;
+		color: color('app', 'black');
+	}
+	&__view {
+		white-space: pre;
+		flex: 0 0 50%;
+		padding: 20px;
+		border-radius: 10px;
+		background-color: color('app', 'white');
 	}
 }
 </style>

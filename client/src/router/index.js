@@ -6,7 +6,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: () => import('../views/HomeView.vue'),
+		component: () => import('@/views/HomeView.vue'),
 		meta: {
 			middleware: [auth],
 		},
@@ -14,7 +14,7 @@ const routes = [
 	{
 		path: '/login',
 		name: 'Login',
-		component: () => import('../views/LoginView.vue'),
+		component: () => import('@/views/LoginView.vue'),
 		meta: {
 			middleware: [login],
 		},
@@ -22,15 +22,23 @@ const routes = [
 	{
 		path: '/player/:id',
 		name: 'Player',
-		component: () => import('../views/PlayerView.vue'),
+		component: () => import('@/views/PlayerView.vue'),
 		meta: {
 			middleware: [auth],
 		},
 	},
 	{
 		path: '/info/:id',
-		name: 'Player',
-		component: () => import('../views/InfoView.vue'),
+		name: 'Info',
+		component: () => import('@/views/InfoView.vue'),
+		meta: {
+			middleware: [auth],
+		},
+	},
+	{
+		path: '/tts/:id',
+		name: 'TTS',
+		component: () => import('@/views/TextToSpeachView.vue'),
 		meta: {
 			middleware: [auth],
 		},

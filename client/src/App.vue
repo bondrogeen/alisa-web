@@ -41,7 +41,6 @@ const onEvent = async ({ name }) => {
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	background: color('app', 'black');
 	&__header {
 		flex: 0 0 50px;
 	}

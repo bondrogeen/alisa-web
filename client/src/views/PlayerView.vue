@@ -23,7 +23,7 @@ const data = computed(() => props.data[id]?.data || {});
 const onCommand = (message) => props.onSend(id, message);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .page-player {
 	height: 100%;
 	display: flex;

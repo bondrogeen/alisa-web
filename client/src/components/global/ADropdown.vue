@@ -35,8 +35,7 @@ const getStyle = computed(() => ({
 	'min-width': props.width,
 }));
 
-const onOutside = (e) => {
-	console.log(e);
+const onOutside = () => {
 	if (show.value) onHide();
 };
 
