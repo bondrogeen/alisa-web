@@ -122,13 +122,13 @@ const onSend = () => {
 		color: color('app', 'black');
 	}
 	&__view {
-		flex: 0 0 50%;
+		flex: 0 0 48%;
 		padding: 20px;
 		border-radius: 10px;
 		background-color: color('app', 'white');
 	}
 	&__form {
-		flex: 0 0 50%;
+		flex: 0 0 48%;
 		padding: 20px;
 		border-radius: 10px;
 		background-color: color('app', 'white');

@@ -1,45 +1,71 @@
-# Alisa Web 
+# Alisa Web
 
-Fullstack vue aplication 
+Fullstack vue aplication
 
 ![image](https://raw.githubusercontent.com/bondrogeen/alisa-web/main/images/screen_1.png)
 
 ![image](https://raw.githubusercontent.com/bondrogeen/alisa-web/main/images/screen_2.png)
 
+![image](https://raw.githubusercontent.com/bondrogeen/alisa-web/main/images/screen_3.png)
+
 ## Installation
 
 Clone project
+
 ```
 git clone https://github.com/bondrogeen/alisa-web
 
 cd alisa-web/
 ```
 
+## Start
+
+```
+cd server/
+
+npm i
+
+npm run dev
+```
+
+## Development
+
 Install Client (dev vue)
+
 ```
 cd client
 
 npm i
 
-npm run serve
+npm run dev
+
+npm run build
 ```
+
 Install server
+
 ```
 cd server
 
 npm i
 
-npm start
+npm run dev
 ```
 
+#### 0.2.0
+
+- (bondrogeen) Minor change
 
 #### 0.1.3
-* (bondrogeen) (client) add page player
+
+- (bondrogeen) (client) add page player
 
 #### 0.1.1
-* (bondrogeen) initial release
+
+- (bondrogeen) initial release
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2021 bondrogeen <bondrogeen@gmail.com>
